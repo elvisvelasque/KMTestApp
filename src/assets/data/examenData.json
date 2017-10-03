@@ -1,0 +1,26 @@
+[
+  {
+    "id_tipoExamen": "EXFI",
+    "descripcion": "EXAMEN FINAL"
+  },
+  {
+    "id_tipoExamen": "EXPA",
+    "descripcion": " EXAMEN PARCIAL"
+  },
+  {
+    "id_tipoExamen": "PC01",
+    "descripcion": "PRACTICA CALIFICADA 1"
+  },
+  {
+    "id_tipoExamen": "PC02",
+    "descripcion": "PRACTICA CALIFICADA 2"
+  },
+  {
+    "id_tipoExamen": "PC03",
+    "descripcion": "PRACTICA CALIFICADA 3"
+  },
+  {
+    "id_tipoExamen": "PC04",
+    "descripcion": "PRACTICA CALIFICADA  4"
+  }
+]

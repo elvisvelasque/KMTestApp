@@ -1,0 +1,38 @@
+[
+  {
+    "id_alumno": "1",
+    "codigoUni": "20110076F",
+    "nombre": "reynaldo",
+    "apellido": "benavides valdivia",
+    "email": "reybert.u7@gmail.com",
+    "telefono": "992154908",
+    "estado": "1"
+  },
+  {
+    "id_alumno": "2",
+    "codigoUni": "20110978K",
+    "nombre": "yanila",
+    "apellido": "barrios  valcarcel",
+    "email": "ybarriosv@gmail.com",
+    "telefono": "945628119",
+    "estado": "1"
+  },
+  {
+    "id_alumno": "3",
+    "codigoUni": "20127634A",
+    "nombre": "kale",
+    "apellido": "zavatel huriarte",
+    "email": "kzavatelh@gmail.com",
+    "telefono": "952345649",
+    "estado": "1"
+  },
+  {
+    "id_alumno": "4",
+    "codigoUni": "20097678A",
+    "nombre": "salemy",
+    "apellido": "bayades huriarte",
+    "email": "sbayadesh@gmail.com",
+    "telefono": "989100342",
+    "estado": "1"
+  }
+]

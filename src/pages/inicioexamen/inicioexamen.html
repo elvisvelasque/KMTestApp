@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar color="facebook">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>inicio de Examen</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card><p>Cantidad de Preguntas: 5</p>
+
+    <p> Peso de Preguntas correctas: 4</p>
+    <p> Peso de Preguntas incorrectas: -2</p>
+    <p> Tiempo de examen: 30 minutos</p>
+
+    <button ion-button (click)="DarExamen()" color="danger">Seguir con el examen</button>
+  </ion-card>
+
+
+</ion-content>

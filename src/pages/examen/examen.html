@@ -1,0 +1,488 @@
+<ion-header>
+  <ion-navbar color="facebook">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Examen 1</ion-title>
+
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+
+    <ion-grid>
+      <ion-row>
+        <button ion-button>
+          <ion-icon name="alarm"></ion-icon>
+          <timer></timer>
+        </button>
+
+        <!--Seleccionar la pregunta a navegar-->
+        <ion-list>
+          <ion-item>
+            <ion-label>Pregunta</ion-label>
+
+            <ion-select [(ngModel)]="pregunta" interface="popover" (ngModelChange)="goToSlideX(pregunta)">
+              <ion-option>1</ion-option>
+              <ion-option>2</ion-option>
+              <ion-option>3</ion-option>
+              <ion-option>4</ion-option>
+              <ion-option>5</ion-option>
+              <ion-option>6</ion-option>
+            </ion-select>
+
+
+          </ion-item>
+        </ion-list>
+
+
+        <button ion-button color="danger" outline (click)="showConfirm()">Terminar Examen</button>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-item>
+      <ion-label id="countdownExample">
+        <div class="values"></div>
+      </ion-label>
+
+    </ion-item>
+    <div padding>
+
+      <ion-slides pager="slides">
+
+        <ion-slide>
+
+          <ion-card>
+
+            <img src="http://www.elhombredehojalata.com/wp-content/uploads/conocimiento-blando-copia.jpg"/>
+            <ion-card-content>
+              <ion-card-title>
+                1. ¿Qué es el conocimiento?
+              </ion-card-title>
+              <ion-list>
+                <ion-item>
+                  <ion-label>Respuesta 1</ion-label>
+                  <ion-checkbox color="blue" [(ngModel)]="QA" (ionChange)="updateAnswer(QA,1,'A')"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 2</ion-label>
+                  <ion-checkbox color="blue" [(ngModel)]="QB" (ionChange)="updateAnswer(QB,1,'B')"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 3</ion-label>
+                  <ion-checkbox color="blue" [(ngModel)]="QC" (ionChange)="updateAnswer(QC,1,'C')"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 4</ion-label>
+                  <ion-checkbox color="blue" [(ngModel)]="QD" (ionChange)="updateAnswer(QD,1,'D')"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 5</ion-label>
+                  <ion-checkbox color="blue" [(ngModel)]="QE" (ionChange)="updateAnswer(QE,1,'E')"></ion-checkbox>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+
+          </ion-card>
+
+        </ion-slide>
+
+        <ion-slide>
+          <ion-card>
+
+
+            <ion-card-content>
+              <ion-card-title>
+                2. Marca los enunciados incorrectos
+              </ion-card-title>
+              <ion-list>
+                <ion-item>
+                  <ion-label>Respuesta 1</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 2</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 3</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 4</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 5</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+
+          </ion-card>
+        </ion-slide>
+
+        <ion-slide>
+          <ion-card>
+
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Esquema_conocimiento.png"/>
+            <ion-card-content>
+              <ion-card-title>
+                3. ¿A qué concepto pertenece la imagen?
+              </ion-card-title>
+              <ion-list>
+                <ion-item>
+                  <ion-label>Respuesta 1</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 2</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 3</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 4</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 5</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+
+          </ion-card>
+        </ion-slide>
+
+
+        <ion-slide>
+          <ion-card>
+
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Esquema_conocimiento.png"/>
+            <ion-card-content>
+              <ion-card-title>
+                3. ¿A qué concepto pertenece la imagen?
+              </ion-card-title>
+              <ion-list>
+                <ion-item>
+                  <ion-label>Respuesta 1</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 2</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 3</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 4</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 5</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+
+          </ion-card>
+        </ion-slide>
+
+        <ion-slide>
+          <ion-card>
+
+            <ion-card-content>
+              <ion-card-title>
+                4. Selecciona los enunciados correctos
+              </ion-card-title>
+              <ion-list>
+                <ion-item>
+                  <ion-label>Respuesta 1</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 2</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 3</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 4</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 5</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+
+          </ion-card>
+        </ion-slide>
+
+        <ion-slide>
+          <ion-card>
+
+            <ion-card-content>
+              <ion-card-title>
+                5. ¿Qué es un dato?
+              </ion-card-title>
+              <ion-list>
+                <ion-item>
+                  <ion-label>Respuesta 1</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 2</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 3</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 4</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Respuesta 5</ion-label>
+                  <ion-checkbox color="blue"></ion-checkbox>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+
+          </ion-card>
+        </ion-slide>
+
+      </ion-slides>
+
+      <!--Modo segmento-->
+      <!--<ion-segment [(ngModel)]="preguntas">
+        <ion-segment-button value="P1">
+          1
+        </ion-segment-button>
+        <ion-segment-button value="P2">
+          2
+        </ion-segment-button>
+        <ion-segment-button value="P3">
+          3
+        </ion-segment-button>
+        <ion-segment-button value="P4">
+          4
+        </ion-segment-button>
+        <ion-segment-button value="P5">
+          5
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <div [ngSwitch]="preguntas">
+      <ion-card *ngSwitchCase="'P1'">
+
+      <img src="http://www.elhombredehojalata.com/wp-content/uploads/conocimiento-blando-copia.jpg"/>
+      <ion-card-content>
+        <ion-card-title>
+          ¿Qué es el conocimiento?
+          </ion-card-title>
+        <ion-list>
+    <ion-item>
+      <ion-label>Respuesta 1</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 2</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 3</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 4</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 5</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+      </ion-list>
+      </ion-card-content>
+
+      </ion-card>
+
+       <ion-card *ngSwitchCase="'P2'">
+
+
+      <ion-card-content>
+        <ion-card-title>
+          Marca los enunciados incorrectos
+          </ion-card-title>
+        <ion-list>
+    <ion-item>
+      <ion-label>Respuesta 1</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 2</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 3</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 4</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 5</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+      </ion-list>
+      </ion-card-content>
+
+      </ion-card>
+
+       <ion-card *ngSwitchCase="'P3'">
+
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Esquema_conocimiento.png"/>
+      <ion-card-content>
+        <ion-card-title>
+          ¿A qué concepto pertenece la imagen?
+          </ion-card-title>
+        <ion-list>
+    <ion-item>
+      <ion-label>Respuesta 1</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 2</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 3</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 4</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 5</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+      </ion-list>
+      </ion-card-content>
+
+      </ion-card>
+
+       <ion-card *ngSwitchCase="'P4'">
+
+        <ion-card-content>
+        <ion-card-title>
+          Selecciona los enunciados correctos
+          </ion-card-title>
+        <ion-list>
+    <ion-item>
+      <ion-label>Respuesta 1</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 2</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 3</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 4</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 5</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+      </ion-list>
+      </ion-card-content>
+
+      </ion-card>
+
+       <ion-card *ngSwitchCase="'P5'">
+
+        <ion-card-content>
+        <ion-card-title>
+          ¿Qué es un dato?
+          </ion-card-title>
+        <ion-list>
+    <ion-item>
+      <ion-label>Respuesta 1</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 2</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 3</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 4</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Respuesta 5</ion-label>
+      <ion-checkbox color="blue" ></ion-checkbox>
+    </ion-item>
+      </ion-list>
+      </ion-card-content>
+
+      </ion-card>-->
+    </div>
+
+
+    <!--<ion-item block danger full (click)= "showCheckbox()">  Pregunta 1</ion-item>
+    <ion-item block danger full (click)="showCheckbox()">Pregunta 2</ion-item>
+    <ion-item block danger full (click)="showCheckbox()">Pregunta 3</ion-item>
+    <ion-item block danger full (click)="showCheckbox()">Pregunta 4</ion-item>
+    <ion-item block danger full (click)="showCheckbox()">Pregunta 5</ion-item>-->
+
+    <!--<ion-item>
+    <ion-navbar>
+      <button block danger  full (click)="showCheckbox()">Pregunta 2 </button>
+   </ion-navbar>
+ </ion-item>
+
+    <ion-item>
+    <ion-checkbox>
+      <button block danger full (click)="showCheckbox()">Pregunta 3 </button>
+   </ion-checkbox>
+ </ion-item>
+
+<ion-item>
+    <ion-checkbox>
+      <button block danger full  (click)="showCheckbox()">Pregunta 4 </button>
+   </ion-checkbox>
+ </ion-item>
+  <ion-item>
+    <ion-checkbox>
+       <button block danger full  (click)="showCheckbox()">Pregunta 5 </button>
+   </ion-checkbox>
+ </ion-item>-->
+
+
+    <button ion-button color="danger" outline (click)="showConfirm()">Terminar Examen</button>
+  </ion-list>
+</ion-content>

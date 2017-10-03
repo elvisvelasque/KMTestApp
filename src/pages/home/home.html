@@ -1,0 +1,140 @@
+<ion-header>
+  <ion-navbar>
+
+    <button ion-button menuToggle="left" start>
+      <div>
+        <ion-icon name="menu"></ion-icon>
+        <label></label>
+      </div>
+    </button>
+
+    <ion-title>Bienvenido!</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goToLoginPage()">
+        <div>
+          <label>Salir</label>
+          <ion-icon name="log_out"></ion-icon>
+        </div>
+      </button>
+    </ion-buttons>
+
+
+  </ion-navbar>
+
+
+  <!--<ion-navbar color="facebook">
+
+    <button ion-button  icon-letf menuToggle="left" start>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>Home Blank</ion-title>
+
+
+    <button ion-buttons  menuToggle="right"  (click)="goToLoginPage()" end>
+      <ion-icon name="close"></ion-icon>
+      Salir
+    </button>
+
+  </ion-navbar>-->
+
+</ion-header>
+
+<!--<ion-header>
+<ion-navbar color="facebook">
+  <button ion-button menuToggle>
+    <ion-icon name= "menu"></ion-icon>
+  </button>
+  <ion-title>Examen Blank</ion-title>
+</ion-navbar>
+</ion-header>-->
+
+
+<!--<ion-toolbar>-->
+<!--<ion-buttons start>
+  <button ion-button icon-only>
+    <ion-icon name="create"></ion-icon>
+  </button>
+</ion-buttons>-->
+<!--<ion-segment [(ngModel)="type"] >
+  <ion-segment-button  value="pendiente" (click)=" EnDataLocal()">
+    Examen Pendiente
+  </ion-segment-button>
+  <ion-segment-button value="pasado">
+    Examenes pasados
+  </ion-segment-button>
+ </ion-segment>-->
+<!--<ion-buttons end>
+  <button ion-button icon-only>
+    <ion-icon name="more"></ion-icon>
+  </button>
+</ion-buttons>-->
+<!--</ion-toolbar>-->
+
+<ion-content padding>
+
+
+  <div>
+    <ion-segment [(ngModel)]="type">
+      <ion-segment-button value="pendiente" (click)="examenPendiente()">
+        <!--<ion-segment-button  value="pendiente" (click)="getMensajes()"> -->
+        Examen Pendiente
+      </ion-segment-button>
+      <br/>
+      <ion-segment-button value="pasado" (click)=" EnDataLocal()">
+        Examenes pasados
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <div [ngSwitch]="type">
+    <!--<div *ngSwitchCase = "'pendiente'">-->
+    <ion-list *ngSwitchCase="'pendiente'">
+      <ion-item-sliding *ngFor="let ex of examen">
+        <button ion-item (click)="ViewIExamen()">
+          <h1>{{ex?.id_tipoExamen}}</h1>
+          <p>{{ex?.descripcion}}</p>
+          <ion-icon name="paper-outline" item-right></ion-icon>
+
+        </button>
+
+
+        <!--<ion-item-options side="left" >
+          <button ion-button color="primary" (click)="View(member)">
+            <ion-icon name="eye"></ion-icon>
+            View
+          </button>
+          <button ion-button color="secondary" (click)="update(member)">
+            <ion-icon name="open"></ion-icon>
+            Edit
+          </button>
+        </ion-item-options>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="Delete(member.mem_mid)">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>-->
+      </ion-item-sliding>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'pasado'">
+      <ion-item-sliding *ngFor="let user of users">
+        <ion-item>
+          <h1>{{user.email}}</h1>
+          <p>{{user.codigoUni}}</p>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+
+  </div>
+
+
+</ion-content>
+<!--
+<style>
+  ion-scroll {
+    width: 100%;
+    height: 100%;
+  }
+</style>-->
