@@ -5,16 +5,66 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import {Observable} from 'rxjs/Observable';
 
+export class User{
+  name:string;
+  username:string;
+
+  constructor(name: string, username:string){
+    this.name = name;
+    this.username = username;
+  }
+}
+
+@Injectable()
+export class AuthService{
+  currentUser: User;
+  public login(credentials){
+    if(credentials.username==null || credentials.password === null){
+      return Observable.throw("por favor ingrese los campos ");
+    }else{
+      return Observable.create(observer=>{
+        let access = (credentials.password === "pass" && credentials.username === "email");//usar el servidor!!!!!!!!!
+        this.currentUser = new User('Simon', 'saimon@devdactic.com');
+        observer.next(access);
+        observer.complete();
+      });
+    }
+  }
+
+  public getUserInfo() : User {
+    return this.currentUser;
+  }
+  
+}
+
 @Injectable()
 export class ServiceProvider {
 
   api: string = 'http://localhost:8000/';
   api2: string = 'http://localhost:8000/login';
-  url: string = 'http://localhost:8000/alumnosWb';
+  //url: string = 'http://localhost:8000/alumnosWb';
 
   constructor(public http: Http) {
     // console.log('Hello ServiceProvider Provider');
 
+  }
+
+  currentUser: User;
+  public login(credentials){
+    if(credentials.username==null || credentials.password === null){
+      return Observable.throw("por favor ingrese los campos ");
+    }else{
+      return Observable.create(observer=>{
+        let access = (credentials.password === "pass" && credentials.username === "email");
+        this.currentUser = new User('Simon', 'saimon@devdactic.com');
+        observer.next(access);
+        observer.complete();
+      });
+    }
+  }
+
+  public getUserInfo() : User {
+    return this.currentUser;
   }
 
   crearloginHeader(headers: Headers) {
@@ -30,9 +80,9 @@ export class ServiceProvider {
     }).map(res => res.json());
   }
 
-  login(data) {
+  /*login(data) {
     return this.http.post(this.api2, data).map(this.extractData);
-  }
+  }*/
 
   isLogged() {
     if (window.localStorage.getItem('token')) {
@@ -59,11 +109,11 @@ export class ServiceProvider {
     });
   }
 
-  LoadData() {
+  /*LoadData() {
     var url = this.api + 'alumnos';
     var response = this.http.get(url).map(res => res.json());
     return response;
-  }
+}*/
 
   getLocalData() {
     return this.http.get('assets/data/serviceData.json').map(res => res.json());
@@ -86,12 +136,12 @@ export class ServiceProvider {
 
   }
 
-  getMensajes() {
+  /*getMensajes() {
     return this.http.get(this.url)
       .do(this.logResponse)
       .map(this.extractData2)
       .catch(this.catchError)
-  }
+}*/
 
   // InsertMember(firstname,lastename,email,mobile,city,state,country,postalcode)
   // {

@@ -50,7 +50,7 @@ export class AdminPage {
   //   const currentSlide = this.slides[slider.activeIndex];
   //   this.type = currentSlide.id;
   // }
-  ngOnInit() {
+ /* ngOnInit() {
     this.presentLoading();
     this.service.LoadData().subscribe(
       data => {
@@ -63,7 +63,7 @@ export class AdminPage {
       },
       () => console.log('datos competos')
     );
-  }
+}*/
 
 
 //data local
@@ -203,8 +203,8 @@ export class AdminPage {
   }
 
 
-  getMensajes() {
+ /* getMensajes() {
     this.service.getMensajes().subscribe(data => console.log(data));
-  }
+}*/
 
 }

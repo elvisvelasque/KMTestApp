@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, LoadingController, NavController, NavParams,Loading} from 'ionic-angular';
 import {AdminPage} from '../admin/admin';
 import {HomePage} from '../home/home';
 import {ServiceProvider} from '../../providers/service/service';
@@ -11,6 +11,8 @@ import 'rxjs/add/operator/map';
   templateUrl: 'login.html',
 })
 export class LoginPage {
+  loading: Loading;
+  registerCredentials = { username: '', password: '' };
   alumnos: any[];
   loader: any;
   Email;
@@ -19,14 +21,45 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public loadingCtrl: LoadingController,
+              private loadingCtrl: LoadingController,
               public service: ServiceProvider,
-              public alertCtrl: AlertController) {
-    this.Email = "";
-    this.codigoUni = "";
+              public alertCtrl: AlertController) {  
   }
 
-  login(FormLogin) {
+   public login() {
+    this.showLoading()
+    this.service.login(this.registerCredentials).subscribe(allowed => {
+      if (allowed) {        
+        this.navCtrl.setRoot('HomePage');
+      } else {
+        this.showError("Access Denied");
+      }
+    },
+      error => {
+        this.showError(error);
+      });
+  }
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+  }
+
+   showError(text) {
+    this.loading.dismiss();
+ 
+    let alert = this.alertCtrl.create({
+      title: 'Fail',
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present(prompt);
+  }
+
+/*  login(FormLogin) {
     this.service.login(FormLogin.value).subscribe(data => {
       if (data.succes === true) {
         this.navCtrl.setRoot(HomePage);
@@ -39,7 +72,7 @@ export class LoginPage {
         alert.present();
       }
     })
-  }
+}*/
 
   // ionViewDidLoad() {
   //   console.log('ionViewDidLoad LoginPage');

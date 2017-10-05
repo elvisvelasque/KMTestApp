@@ -9,7 +9,7 @@ import {LoginPage} from '../pages/login/login';
 import {HomePage} from '../pages/home/home';
 import {InicioexamenPage} from '../pages/inicioexamen/inicioexamen';
 import {ExamenPage} from '../pages/examen/examen';
-import {FinexamenPage} from '../pages/finexamen/finexamen';
+//import {FinexamenPage} from '../pages/finexamen/finexamen';
 import {ServiceProvider} from '../providers/service/service';
 import {HttpModule} from '@angular/http';
 import {TimerComponent} from '../assets/js/timer';
@@ -21,7 +21,7 @@ import {TimerComponent} from '../assets/js/timer';
     HomePage,
     InicioexamenPage,
     ExamenPage,
-    FinexamenPage,
+    //FinexamenPage,
     AdminPage,
     TimerComponent
   ],
@@ -37,7 +37,7 @@ import {TimerComponent} from '../assets/js/timer';
     HomePage,
     InicioexamenPage,
     ExamenPage,
-    FinexamenPage,
+    //FinexamenPage,
     AdminPage
   ],
   providers: [

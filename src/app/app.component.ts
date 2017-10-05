@@ -6,7 +6,7 @@ import {LoginPage} from '../pages/login/login';
 import {HomePage} from '../pages/home/home';
 import {InicioexamenPage} from '../pages/inicioexamen/inicioexamen';
 import {ExamenPage} from '../pages/examen/examen';
-import {FinexamenPage} from '../pages/finexamen/finexamen';
+//import {FinexamenPage} from '../pages/finexamen/finexamen';
 import {ServiceProvider} from '../providers/service/service';
 
 
@@ -16,6 +16,7 @@ declare var Timer: any;
   templateUrl: 'app.html'
 })
 export class MyApp {
+
   @ViewChild(Nav) nav: Nav;
   rootPage: any = LoginPage;
   pages: Array<{ title: string, component: any }>
@@ -27,9 +28,9 @@ export class MyApp {
               private service: ServiceProvider) {
     //si el usuario está logeado, la página raíz es loginPage, de lo contrario seria HomePage
     if (this.service.isLogged() === false) {
-      this.rootPage = HomePage;
-    } else {
       this.rootPage = LoginPage;
+    } else {
+      this.rootPage = HomePage;
     }
 
     this.initializeApp();
@@ -38,7 +39,7 @@ export class MyApp {
       {title: 'Home', component: HomePage},
       {title: 'inicioExamen', component: InicioexamenPage},
       {title: 'examen', component: ExamenPage},
-      {title: 'finexamen', component: FinexamenPage},
+      //{title: 'finexamen', component: FinexamenPage},
       {title: 'salir', component: LoginPage}
     ];
   }

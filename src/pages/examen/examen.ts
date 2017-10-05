@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ActionSheetController, AlertController, IonicPage, NavController, NavParams, Slides} from 'ionic-angular';
-import {FinexamenPage} from '../finexamen/finexamen';
+//import {FinexamenPage} from '../finexamen/finexamen';
 
 /**
  * Generated class for the ExamenPage page.
@@ -80,7 +80,7 @@ export class ExamenPage {
           text: 'Aceptar',
           handler: () => {
             console.log('Agree clicked');
-            this.navCtrl.push(FinexamenPage);
+            //this.navCtrl.push(FinexamenPage);
 
 
           }
