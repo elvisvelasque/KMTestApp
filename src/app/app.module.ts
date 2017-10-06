@@ -6,7 +6,6 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {AdminPage} from '../pages/admin/admin';
 import {MyApp} from './app.component';
 import {LoginPage} from '../pages/login/login';
-import {HomePage} from '../pages/home/home';
 import {InicioexamenPage} from '../pages/inicioexamen/inicioexamen';
 import {ExamenPage} from '../pages/examen/examen';
 //import {FinexamenPage} from '../pages/finexamen/finexamen';
@@ -18,7 +17,6 @@ import {TimerComponent} from '../assets/js/timer';
   declarations: [
     MyApp,
     LoginPage,
-    HomePage,
     InicioexamenPage,
     ExamenPage,
     //FinexamenPage,
@@ -34,7 +32,6 @@ import {TimerComponent} from '../assets/js/timer';
   entryComponents: [
     MyApp,
     LoginPage,
-    HomePage,
     InicioexamenPage,
     ExamenPage,
     //FinexamenPage,

@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController} from 'ionic-angular';
+import {LoadingController, NavController, IonicPage} from 'ionic-angular';
 
 import {InicioexamenPage} from '../inicioexamen/inicioexamen';
 import {LoginPage} from '../login/login';
 import {ServiceProvider} from '../../providers/service/service';
 
+@IonicPage() 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'

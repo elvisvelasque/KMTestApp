@@ -12,6 +12,7 @@ import {ServiceProvider} from '../providers/service/service';
 
 declare var Timer: any;
 
+
 @Component({
   templateUrl: 'app.html'
 })
