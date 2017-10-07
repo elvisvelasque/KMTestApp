@@ -54,14 +54,31 @@ export class ServiceProvider {
     if(credentials.username==null || credentials.password === null){
       return Observable.throw("por favor ingrese los campos ");
     }else{
-      return Observable.create(observer=>{
+      
+     /* return Observable.create(observer=>{
         let access = (credentials.password === "pass" && credentials.username === "email");
         this.currentUser = new User('Simon', 'saimon@devdactic.com');
         observer.next(access);
-        observer.complete();
-      });
+        observer.complete();*/
+         let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        let data = {
+          username: credentials.username,
+          password: credentials.password
+        };
+
+        this.http.post('https://kmtest.victoralin10.com/api/auth/login', JSON.stringify(data), {headers: headers})
+        .subscribe(res => {
+          //console.log(res.json());
+          var uu =res.json();
+          var allowed = uu["success"];
+          return res.json();
+        }, (err) => {
+          console.log(err);
+        });
+      };
     }
-  }
 
   public getUserInfo() : User {
     return this.currentUser;

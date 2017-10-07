@@ -28,16 +28,23 @@ export class LoginPage {
 
    public login() {
     this.showLoading()
-    this.service.login(this.registerCredentials).subscribe(allowed => {
-      if (allowed) {        
+    this.service.login(this.registerCredentials).subscribe(allowed=>{
+      console.log(allowed);
+    });
+
+
+
+    //.subscribe(allowed => {
+      /*if (allowed) {        
         this.navCtrl.setRoot('HomePage');
       } else {
         this.showError("Access Denied");
-      }
+      }*/
+     /* console.log(allowed);
     },
       error => {
         this.showError(error);
-      });
+      });*/
   }
 
   showLoading() {
