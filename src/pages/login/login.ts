@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, LoadingController, NavController, NavParams,Loading} from 'ionic-angular';
+import {AlertController, IonicPage, Loading, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {AdminPage} from '../admin/admin';
 import {HomePage} from '../home/home';
 import {ServiceProvider} from '../../providers/service/service';
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 })
 export class LoginPage {
   loading: Loading;
-  registerCredentials = { username: '', password: '' };
+  registerCredentials = {username: '', password: ''};
   alumnos: any[];
   loader: any;
   Email;
@@ -23,28 +23,31 @@ export class LoginPage {
               public navParams: NavParams,
               private loadingCtrl: LoadingController,
               public service: ServiceProvider,
-              public alertCtrl: AlertController) {  
+              public alertCtrl: AlertController) {
   }
 
-   public login() {
-    this.showLoading()
-    this.service.login(this.registerCredentials).subscribe(allowed=>{
-      console.log(allowed);
-    });
+  public login() {
+    this.showLoading();
 
-
-
-    //.subscribe(allowed => {
-      /*if (allowed) {        
-        this.navCtrl.setRoot('HomePage');
+    this.service.login(this.registerCredentials).subscribe(res => {
+      console.log(res);
+      if (res.success) {
+        console.log('ok');
       } else {
-        this.showError("Access Denied");
-      }*/
-     /* console.log(allowed);
-    },
-      error => {
-        this.showError(error);
-      });*/
+        console.log('no ok');
+      }
+    });
+    //.subscribe(allowed => {
+    /*if (allowed) {
+      this.navCtrl.setRoot('HomePage');
+    } else {
+      this.showError("Access Denied");
+    }*/
+    /* console.log(allowed);
+   },
+     error => {
+       this.showError(error);
+     });*/
   }
 
   showLoading() {
@@ -55,9 +58,9 @@ export class LoginPage {
     this.loading.present();
   }
 
-   showError(text) {
+  showError(text) {
     this.loading.dismiss();
- 
+
     let alert = this.alertCtrl.create({
       title: 'Fail',
       subTitle: text,
@@ -66,20 +69,20 @@ export class LoginPage {
     alert.present(prompt);
   }
 
-/*  login(FormLogin) {
-    this.service.login(FormLogin.value).subscribe(data => {
-      if (data.succes === true) {
-        this.navCtrl.setRoot(HomePage);
-      } else {
-        let alert = this.alertCtrl.create({
-          title: 'login falled',
-          subTitle: data.messeage,
-          buttons: ['OK']
-        })
-        alert.present();
-      }
-    })
-}*/
+  /*  login(FormLogin) {
+      this.service.login(FormLogin.value).subscribe(data => {
+        if (data.succes === true) {
+          this.navCtrl.setRoot(HomePage);
+        } else {
+          let alert = this.alertCtrl.create({
+            title: 'login falled',
+            subTitle: data.messeage,
+            buttons: ['OK']
+          })
+          alert.present();
+        }
+      })
+  }*/
 
   // ionViewDidLoad() {
   //   console.log('ionViewDidLoad LoginPage');

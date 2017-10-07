@@ -5,24 +5,25 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import {Observable} from 'rxjs/Observable';
 
-export class User{
-  name:string;
-  username:string;
+export class User {
+  name: string;
+  username: string;
 
-  constructor(name: string, username:string){
+  constructor(name: string, username: string) {
     this.name = name;
     this.username = username;
   }
 }
 
 @Injectable()
-export class AuthService{
+export class AuthService {
   currentUser: User;
-  public login(credentials){
-    if(credentials.username==null || credentials.password === null){
+
+  public login(credentials) {
+    if (credentials.username == null || credentials.password === null) {
       return Observable.throw("por favor ingrese los campos ");
-    }else{
-      return Observable.create(observer=>{
+    } else {
+      return Observable.create(observer => {
         let access = (credentials.password === "pass" && credentials.username === "email");//usar el servidor!!!!!!!!!
         this.currentUser = new User('Simon', 'saimon@devdactic.com');
         observer.next(access);
@@ -31,10 +32,10 @@ export class AuthService{
     }
   }
 
-  public getUserInfo() : User {
+  public getUserInfo(): User {
     return this.currentUser;
   }
-  
+
 }
 
 @Injectable()
@@ -42,6 +43,7 @@ export class ServiceProvider {
 
   api: string = 'http://localhost:8000/';
   api2: string = 'http://localhost:8000/login';
+
   //url: string = 'http://localhost:8000/alumnosWb';
 
   constructor(public http: Http) {
@@ -50,37 +52,35 @@ export class ServiceProvider {
   }
 
   currentUser: User;
-  public login(credentials){
-    if(credentials.username==null || credentials.password === null){
+
+  public login(credentials) {
+    if (credentials.username == null || credentials.password === null) {
       return Observable.throw("por favor ingrese los campos ");
-    }else{
-      
-     /* return Observable.create(observer=>{
-        let access = (credentials.password === "pass" && credentials.username === "email");
-        this.currentUser = new User('Simon', 'saimon@devdactic.com');
-        observer.next(access);
-        observer.complete();*/
-         let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        let data = {
-          username: credentials.username,
-          password: credentials.password
-        };
-
-        this.http.post('https://kmtest.victoralin10.com/api/auth/login', JSON.stringify(data), {headers: headers})
-        .subscribe(res => {
-          //console.log(res.json());
-          var uu =res.json();
-          var allowed = uu["success"];
-          return res.json();
-        }, (err) => {
-          console.log(err);
-        });
-      };
     }
+    /* return Observable.create(observer=>{
+       let access = (credentials.password === "pass" && credentials.username === "email");
+       this.currentUser = new User('Simon', 'saimon@devdactic.com');
+       observer.next(access);
+       observer.complete();*/
 
-  public getUserInfo() : User {
+    return Observable.create(observer => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      let data = {
+        username: credentials.username,
+        password: credentials.password
+      };
+
+      this.http.post('https://kmtest.victoralin10.com/api/auth/login', JSON.stringify(data), {headers: headers})
+        .subscribe(dat => {
+          observer.next(dat.json());
+          observer.complete();
+        });
+    });
+  }
+
+  public getUserInfo(): User {
     return this.currentUser;
   }
 
