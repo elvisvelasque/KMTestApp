@@ -32,22 +32,11 @@ export class LoginPage {
     this.service.login(this.registerCredentials).subscribe(res => {
       console.log(res);
       if (res.success) {
-        console.log('ok');
+        this.navCtrl.setRoot('HomePage',{data:res});
       } else {
-        console.log('no ok');
+        this.showError("Access Denied");
       }
     });
-    //.subscribe(allowed => {
-    /*if (allowed) {
-      this.navCtrl.setRoot('HomePage');
-    } else {
-      this.showError("Access Denied");
-    }*/
-    /* console.log(allowed);
-   },
-     error => {
-       this.showError(error);
-     });*/
   }
 
   showLoading() {
@@ -66,27 +55,8 @@ export class LoginPage {
       subTitle: text,
       buttons: ['OK']
     });
-    alert.present(prompt);
+    alert.present();
   }
-
-  /*  login(FormLogin) {
-      this.service.login(FormLogin.value).subscribe(data => {
-        if (data.succes === true) {
-          this.navCtrl.setRoot(HomePage);
-        } else {
-          let alert = this.alertCtrl.create({
-            title: 'login falled',
-            subTitle: data.messeage,
-            buttons: ['OK']
-          })
-          alert.present();
-        }
-      })
-  }*/
-
-  // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad LoginPage');
-  // }
 
   presentLoading() {
     let loader = this.loadingCtrl.create({

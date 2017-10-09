@@ -15,32 +15,11 @@ export class User {
   }
 }
 
-@Injectable()
-export class AuthService {
-  currentUser: User;
-
-  public login(credentials) {
-    if (credentials.username == null || credentials.password === null) {
-      return Observable.throw("por favor ingrese los campos ");
-    } else {
-      return Observable.create(observer => {
-        let access = (credentials.password === "pass" && credentials.username === "email");//usar el servidor!!!!!!!!!
-        this.currentUser = new User('Simon', 'saimon@devdactic.com');
-        observer.next(access);
-        observer.complete();
-      });
-    }
-  }
-
-  public getUserInfo(): User {
-    return this.currentUser;
-  }
-
-}
+const url="https://kmtest.victoralin10.com/api/";
 
 @Injectable()
 export class ServiceProvider {
-
+  
   api: string = 'http://localhost:8000/';
   api2: string = 'http://localhost:8000/login';
 
@@ -57,11 +36,6 @@ export class ServiceProvider {
     if (credentials.username == null || credentials.password === null) {
       return Observable.throw("por favor ingrese los campos ");
     }
-    /* return Observable.create(observer=>{
-       let access = (credentials.password === "pass" && credentials.username === "email");
-       this.currentUser = new User('Simon', 'saimon@devdactic.com');
-       observer.next(access);
-       observer.complete();*/
 
     return Observable.create(observer => {
       let headers = new Headers();
@@ -72,7 +46,7 @@ export class ServiceProvider {
         password: credentials.password
       };
 
-      this.http.post('https://kmtest.victoralin10.com/api/auth/login', JSON.stringify(data), {headers: headers})
+      this.http.post(url+'auth/login', JSON.stringify(data), {headers: headers})
         .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();
@@ -148,10 +122,20 @@ export class ServiceProvider {
 
   }
 
-  getDataExamenLocal() {
-    return this.http.get('assets/data/examenData.json').map(res => res.json());
-
+  getDataExamenLocal(token) {
+    return Observable.create(observer => {
+      let headers = new Headers();
+      headers.append('x-access-token',token);
+      this.http.get(url+'test', {headers: headers})
+        .subscribe(dat => {
+          observer.next(dat.json());
+          observer.complete();
+        });
+    });
   }
+
+
+
 
   /*getMensajes() {
     return this.http.get(this.url)

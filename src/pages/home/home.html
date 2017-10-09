@@ -1,25 +1,30 @@
 <ion-header>
-  <ion-navbar>
-
-    <button ion-button menuToggle="left" start>
-      <div>
-        <ion-icon name="menu"></ion-icon>
-        <label></label>
-      </div>
+    
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <span class="button-inner">
+          <ion-icon name="menu" role="img" aria-label="menu"></ion-icon>
+      </span>
     </button>
-
-    <ion-title>Bienvenido!</ion-title>
+    <div class="toolbar-content">
+      <ion-title class="title">
+        <div class="toolbar-title">
+          MENU
+        </div>
+      </ion-title>
+    </div>
 
     <ion-buttons end>
       <button ion-button icon-only (click)="goToLoginPage()">
-        <div>
-          <label>Salir</label>
-          <ion-icon name="log_out"></ion-icon>
-        </div>
+          <div class="toolbar-content">
+              <ion-title class="title">
+                <div class="toolbar-title">
+                  SALIR
+                </div>
+              </ion-title>
+            </div>
       </button>
     </ion-buttons>
-
-
   </ion-navbar>
 
 
@@ -74,6 +79,14 @@
 
 <ion-content padding>
 
+  <ion-menu [content]="mycontent">
+      <ion-content>
+        <ion-list>
+          <p>some menu content, could be list items</p>
+        </ion-list>
+      </ion-content>
+  </ion-menu>
+  <ion-nav #mycontent [root]="homePage"></ion-nav>
 
   <div>
     <ion-segment [(ngModel)]="type">
@@ -88,18 +101,19 @@
     </ion-segment>
   </div>
   <div [ngSwitch]="type">
-    <!--<div *ngSwitchCase = "'pendiente'">-->
-    <!--<ion-list *ngSwitchCase="'pendiente'">
-      <ion-item-sliding *ngFor="let ex of examen">
-        <button ion-item (click)="ViewIExamen()">
-          <h1>{{ex?.id_tipoExamen}}</h1>
-          <p>{{ex?.descripcion}}</p>
-          <ion-icon name="paper-outline" item-right></ion-icon>
+    <div *ngSwitchCase = "'pendiente'">
+      <ion-list *ngSwitchCase="'pendiente'">
+        <ion-item-sliding *ngFor="let ex of examen">
+          <button ion-item (click)="ViewIExamen()">
+            <h1>{{ex?.id}}</h1>
+            <p>{{ex?.name}}</p>
+            <ion-icon name="paper-outline" item-right></ion-icon>
+          </button>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
 
-        </button>
-
-
-        <ion-item-options side="left" >
+        <!--<ion-item-options side="left" >
           <button ion-button color="primary" (click)="View(member)">
             <ion-icon name="eye"></ion-icon>
             View

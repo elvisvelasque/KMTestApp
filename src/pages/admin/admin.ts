@@ -84,7 +84,7 @@ export class AdminPage {
 
   examenPendiente() {
     this.presentLoading();
-    this.service.getDataExamenLocal().subscribe(
+    this.service.getDataExamenLocal("").subscribe(
       data => {
         this.prueba = data;
         console.log(data);

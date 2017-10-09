@@ -1,28 +1,44 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController, IonicPage} from 'ionic-angular';
+import {LoadingController, NavController, IonicPage,NavParams} from 'ionic-angular';
 
 import {InicioexamenPage} from '../inicioexamen/inicioexamen';
 import {LoginPage} from '../login/login';
 import {ServiceProvider} from '../../providers/service/service';
+
+export  class TestPendiente {
+  id: number;
+  name: string;
+
+  constructor(id: number, name: string) {
+    this.id = id;
+    this.name = name;
+  }
+}
 
 @IonicPage() 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
 export class HomePage {
   // @ViewChild('mySlider') slider: Slides;
   // slides:any;
   users: any[];
-  examen: any[];
   loader: any;
   type: string;
+  data: string;
+  examen : TestPendiente[]=[];
 
-  constructor(public navCtrl: NavController,
+  
+  constructor(public navCtrl: NavController, 
+              private navParams: NavParams,
               public service: ServiceProvider,
               public loadingCtrl: LoadingController) {
-
+   
     this.type = "pendiente";
+    this.data = this.navParams.get('data');//datos token pasados a la vista home
+    this.examenPendiente();//muestra los examenes pendientes
     //  this.slides = [
     //     {
     //       id: "pendiente",
@@ -69,7 +85,6 @@ export class HomePage {
 
 //data local
   EnDataLocal() {
-    this.presentLoading();
     this.service.getLocalData().subscribe(
       data => {
         this.users = data;
@@ -85,17 +100,21 @@ export class HomePage {
 
 //extrayendo la data de examenes
   examenPendiente() {
-    this.presentLoading();
-    this.service.getDataExamenLocal().subscribe(
+    //this.presentLoading();
+    this.service.getDataExamenLocal(this.data["token"]).subscribe(
       data => {
-        this.examen = data;
+        /*this.examen = data;
         console.log(data);
-        this.loader.dismiss();
+        this.loader.dismiss();*/
+        let tests = data["data"];
+        console.log(tests[0]["id_test"]);
+        for(var i=0;i<tests.length;i++){
+          this.examen.push(new TestPendiente(tests[i]["id_test"],tests[i]["name"])); 
+        }
       },
       err => {
         console.log(err);
-      },
-      () => console.log('datos competos')
+      }
     );
   }
 
