@@ -88,23 +88,26 @@
   </ion-menu>
   <ion-nav #mycontent [root]="homePage"></ion-nav>
 
-  <div>
-    <ion-segment [(ngModel)]="type">
-      <ion-segment-button value="pendiente" (click)="examenPendiente()">
-        <!--<ion-segment-button  value="pendiente" (click)="getMensajes()"> -->
-        Examen Pendiente
-      </ion-segment-button>
-      <br/>
-      <ion-segment-button value="pasado" (click)=" EnDataLocal()">
-        Examenes pasados
-      </ion-segment-button>
-    </ion-segment>
+  <div [ngSwitch]="type2">
+    <div *ngSwitchCase = "'inicio'">
+      <ion-segment [(ngModel)]="type">
+        <ion-segment-button value="pendiente" (click)="examenPendiente()">
+          <!--<ion-segment-button  value="pendiente" (click)="getMensajes()"> -->
+          Examen Pendiente
+        </ion-segment-button>
+        <br/>
+        <ion-segment-button value="pasado" (click)=" EnDataLocal()">
+          Examenes pasados
+        </ion-segment-button>
+      </ion-segment>
+    </div>
   </div>
+  
   <div [ngSwitch]="type">
     <div *ngSwitchCase = "'pendiente'">
       <ion-list *ngSwitchCase="'pendiente'">
         <ion-item-sliding *ngFor="let ex of examen">
-          <button ion-item (click)="ViewIExamen()">
+          <button ion-item (click)="ViewIExamen(ex)">
             <h1>{{ex?.id}}</h1>
             <p>{{ex?.name}}</p>
             <ion-icon name="paper-outline" item-right></ion-icon>
@@ -142,7 +145,38 @@
     </ion-list>
 -->
   </div>
-
+  <div [ngSwitch]="type2">
+      <div *ngSwitchCase = "'examenPendiente'">
+          <ion-card-content class="card-content" center text-center>
+            <p>Nombre del Examen: {{nombreExamen}}</p>
+            <p>Cantidad de Preguntas: {{number_questions}}</p>
+            <p> Peso de Preguntas correctas: {{correct_points}}</p>
+            <p> Peso de Preguntas incorrectas: {{error_points}}</p>
+            <p>Fecha del examen: {{getFecha(start_datetime)}}</p>
+            <p>Inicio del examen: {{cambio(start_datetime)}}</p>
+            <!--<p>Duracion: {{duracion(cambio(start_datetime),cambio(end_datetime),getFecha(start_datetime))}}</p>-->
+            <p>Duracion: 30 minutos ??</p>
+        
+            <!--<button ion-button (click)="DarExamen()" color="danger">Seguir con el examen</button>-->
+            <ion-grid>
+              <ion-row>
+                  <ion-col col-12>
+                    <button ion-button block icon-start (click)="back()" color="Light">
+                      <ion-icon name="arrow-back"></ion-icon>
+                      Atras
+                    </button>
+                  </ion-col>
+                <ion-col col-12>
+                  <button ion-button block icon-end (click)="DarExamen()" color="secondary">
+                    Iniciar Examen
+                    <ion-icon name="star" style="margin-left:5px;"></ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+      </div>
+  </div>
 
 </ion-content>
 <!--
