@@ -134,6 +134,18 @@ export class ServiceProvider {
     });
   }
 
+  getPreguntas(token,id) {
+    return Observable.create(observer => {
+      let headers = new Headers();
+      headers.append('x-access-token',token);
+      this.http.get(url+'test/'+id+'/questions', {headers: headers})
+        .subscribe(dat => {
+          observer.next(dat.json());
+          observer.complete();
+        });
+    });
+  }
+
 
 
 

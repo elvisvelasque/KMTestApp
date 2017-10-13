@@ -155,7 +155,7 @@
             <p>Fecha del examen: {{getFecha(start_datetime)}}</p>
             <p>Inicio del examen: {{cambio(start_datetime)}}</p>
             <!--<p>Duracion: {{duracion(cambio(start_datetime),cambio(end_datetime),getFecha(start_datetime))}}</p>-->
-            <p>Duracion: 30 minutos ??</p>
+            <p>Fin del examen: {{cambio(end_datetime)}}</p>
         
             <!--<button ion-button (click)="DarExamen()" color="danger">Seguir con el examen</button>-->
             <ion-grid>
@@ -167,13 +167,76 @@
                     </button>
                   </ion-col>
                 <ion-col col-12>
-                  <button ion-button block icon-end (click)="DarExamen()" color="secondary">
+                  <button ion-button block icon-end (click)="DarExamen(id);" color="secondary">
                     Iniciar Examen
                     <ion-icon name="star" style="margin-left:5px;"></ion-icon>
                   </button>
                 </ion-col>
               </ion-row>
             </ion-grid>
+          </ion-card-content>
+      </div>
+  </div>
+  <div [ngSwitch]="type3">
+    <div *ngSwitchCase = "'cabeceraExamen'">
+      <ion-segment-button  text-left disabled style="background:#D6FFFF;color:black">
+          <p>Nombre del Examen: {{nombreExamen}}</p>
+          <p>Cantidad de Preguntas: {{number_questions}}</p>
+          <p>Duracion:???</p>
+      </ion-segment-button>
+      <ion-card class="card">
+        <img [src]="picture">
+        <ion-card-content class="card-content">
+          <ion-card-title>{{id_question}}</ion-card-title>
+          <p>{{question}}</p>
+        </ion-card-content>
+        <ion-list radio-group [(ngModel)]="answerStudent">
+          <ion-item>
+            <ion-label>a) {{option1}}</ion-label>
+            <ion-radio value="1"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>b) {{option2}}</ion-label>
+            <ion-radio value="2"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>c) {{option3}}</ion-label>
+            <ion-radio value="3"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>d) {{option4}}</ion-label>
+            <ion-radio value="4"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>e) {{option5}}</ion-label>
+            <ion-radio value="5"></ion-radio>
+          </ion-item>
+      </ion-list>
+      </ion-card>
+      <ion-segment>
+          <ion-segment-button (click)="guardarRpta(id_question-1);iraPregunta(id_question-2)" color="Light">
+              <ion-icon name="ios-arrow-back"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button (click)="guardarRpta(id_question-1);iraPregunta(id_question);" color="Light">
+              <ion-icon name="ios-arrow-forward"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button (click)="showRadio()" color="Light">
+              <ion-icon name="ios-arrow-up"></ion-icon>
+          </ion-segment-button>
+      </ion-segment>
+      <button ion-button full color="danger" (click)="guardarRpta(id_question-1);showConfirm()">Terminar</button>
+    </div>
+  </div>
+
+  <div [ngSwitch]="type3">
+      <div *ngSwitchCase = "'resultado'">
+          <ion-card-content class="card-content" center text-center>
+              <p>RESULTADO DE EXAMEN DE EVALUACION</p>
+              <p>Cantidad de preguntas: {{number_questions}}</p>
+              <p>Cantidad de preguntas respondidas: {{numRspndidas}}</p>
+              <p> Cantidad de preguntas en blanco: {{numBlancos}}</p>
+              <p>Tiempo transcurrido ????</p>
+              <p>Puntaje final: {{puntajeFinal}}</p>
           </ion-card-content>
       </div>
   </div>

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController, IonicPage,NavParams} from 'ionic-angular';
+import {LoadingController, NavController, IonicPage,NavParams,AlertController} from 'ionic-angular';
 
 import {InicioexamenPage} from '../inicioexamen/inicioexamen';
 import {LoginPage} from '../login/login';
@@ -29,6 +29,48 @@ export  class TestPendiente {
   }
 }
 
+export class rptaAlumno{
+  id_question:number;
+  answer_student:number;
+  constructor(id_question:number,answer_student:number){
+    this.id_question=id_question;
+    this.answer_student=answer_student;
+  }
+}
+
+export class Pregunta {
+  id_question:number;
+  id_test:number;
+  order:number;
+  question:string;
+  picture:string;
+  option1:string;
+  option2:string;
+  option3:string;
+  option4:string;
+  option5:string;
+  answer:number;
+  correct_points:number;
+  error_points:number;
+
+  constructor(id_question: number, id_test: number, order: number, question: string, picture: string, option1: string, option2: string, option3: string,option4: string,option5: string,answer: number,correct_points: number,error_points: number) {
+    this.id_question = id_question;
+    this.id_test = id_test;
+    this.order = order;
+    this.question = question;
+    this.picture = picture;
+    this.option1 = option1;
+    this.option2 = option2;
+    this.option3 = option3;
+    this.option4 = option4;
+    this.option5 = option5;
+    this.option5 = option5;
+    this.answer = answer;
+    this.correct_points = correct_points;
+    this.error_points = error_points;
+  }
+}
+
 @IonicPage() 
 @Component({
   selector: 'page-home',
@@ -42,8 +84,13 @@ export class HomePage {
   loader: any;
   type: string;
   type2: string;
+  type3: string;
   data: string;
   examen : TestPendiente[]=[];
+  idPregunta:number=1;
+  preguntas : Pregunta[]=[];
+  answerStudent:number=0;
+  respuestasAlumno:rptaAlumno[]=[];
 
   nombreExamen:string="";
   number_questions:number=0;
@@ -51,12 +98,26 @@ export class HomePage {
   error_points:number=0;
   start_datetime:string="";
   end_datetime:string="";
+  id:number=0;
 
+  id_question:number=0;
+  question:string="";
+  picture:string="";
+  option1:string="";
+  option2:string="";
+  option3:string="";
+  option4:string="";
+  option5:string="";
+
+  numRspndidas:number=0;
+  numBlancos:number=0;
+  puntajeFinal:number=0;
 
   constructor(public navCtrl: NavController, 
               private navParams: NavParams,
               public service: ServiceProvider,
-              public loadingCtrl: LoadingController) {
+              public loadingCtrl: LoadingController,
+              public alertCtrl: AlertController) {
    
     this.type = "pendiente";
     this.type2 = "inicio";
@@ -194,7 +255,7 @@ export class HomePage {
     this.error_points = exam.error_points;
     this.start_datetime = exam.start_datetime;
     this.end_datetime = exam.end_datetime;
-
+    this.id=exam.id;
   }
 
   cambio(horadia){
@@ -219,6 +280,84 @@ export class HomePage {
     this.error_points = 0;
     this.start_datetime = "";
     this.end_datetime = "";
+    this.id=0;
+  }
+
+  DarExamen(id){
+    this.presentLoading();
+    this.type2="";
+    this.type="";
+    this.type3="cabeceraExamen";
+    this.preguntas=[];
+    this.service.getPreguntas(this.data["token"],id).subscribe(
+      data => {
+        let tests = data["data"];
+        for(var i=0;i<tests.length;i++){
+          this.preguntas.push(new Pregunta(tests[i]["id_question"],tests[i]["id_test"],tests[i]["order"],tests[i]["question"],tests[i]["picture"],tests[i]["option1"],tests[i]["option2"],tests[i]["option3"],tests[i]["option4"],tests[i]["option5"],tests[i]["answer"],tests[i]["correct_points"],tests[i]["error_points"]));
+        }
+        this.id_question=this.preguntas[0]["id_question"];
+        this.question=this.preguntas[0]["question"];
+        this.picture=this.preguntas[0]["picture"];
+        this.option1=this.preguntas[0]["option1"];
+        this.option2=this.preguntas[0]["option2"];
+        this.option3=this.preguntas[0]["option3"];
+        this.option4=this.preguntas[0]["option4"];
+        this.option5=this.preguntas[0]["option5"];
+      },
+      err => {
+        console.log(err);
+      }
+    );
+    
+  }
+
+  iraPregunta(idPregunta){
+    if(idPregunta>-1 && idPregunta<5){
+      this.presentLoading();
+      this.id_question=this.preguntas[idPregunta]["id_question"];
+      this.question=this.preguntas[idPregunta]["question"];
+      this.picture=this.preguntas[idPregunta]["picture"];
+      this.option1=this.preguntas[idPregunta]["option1"];
+      this.option2=this.preguntas[idPregunta]["option2"];
+      this.option3=this.preguntas[idPregunta]["option3"];
+      this.option4=this.preguntas[idPregunta]["option4"];
+      this.option5=this.preguntas[idPregunta]["option5"];
+      this.answerStudent=(this.respuestasAlumno[idPregunta]==null)?0:this.respuestasAlumno[idPregunta]["answer_student"]
+    }
+  }
+
+  guardarRpta(idPregunta){
+    let primero=true;
+    for(var i=0;i<this.respuestasAlumno.length;i++){
+      if(this.respuestasAlumno[i]["id_question"]==idPregunta+1){
+        this.respuestasAlumno[i]["answer_student"] = this.answerStudent*1;
+        primero=false;
+      }
+    }
+    if(primero){
+      this.respuestasAlumno.push(new rptaAlumno(idPregunta+1,this.answerStudent*1));
+    }
+    
+    //;
+    console.log(this.respuestasAlumno);
+  }
+
+  obtenerPuntaje(){
+    this.type3="resultado";
+    for(var i=0;i<this.respuestasAlumno.length;i++){
+      if(this.respuestasAlumno[i]["answer_student"]==0){
+        this.numBlancos++;
+      }else{
+        this.numRspndidas++;
+      }
+    }
+    for(var i=0;i<this.preguntas.length;i++){
+      if(this.preguntas[i]["answer"]==this.respuestasAlumno[i]["answer_student"]){
+        this.puntajeFinal+=this.correct_points;
+      }else{
+        this.puntajeFinal-=this.error_points;
+      }
+    }
   }
 
 
@@ -279,9 +418,54 @@ export class HomePage {
     this.loader.present();
   }
 
+  showRadio() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Ir a la pregunta');
+    for(var i=0;i<this.preguntas.length;i++){
+      alert.addInput({
+        type: 'radio',
+        label: 'Pregunta '+(i+1),
+        value: ''+(i),
+        checked: false
+      });
+    }
+  
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'OK',
+      handler: data => {
+        this.guardarRpta(this.id_question-1);
+        this.iraPregunta((data*1));
+      }
+    });
+    alert.present();
+  }
+
+  showConfirm() {
+    let confirm = this.alertCtrl.create({
+      title: '¿Estas seguro que deseas terminar el examen?',
+      buttons: [
+        {
+          text: 'SI',
+          handler: () => {
+            this.obtenerPuntaje();
+          }
+        },
+        {
+          text: 'NO',
+          handler: () => {
+            //console.log('Agree clicked');
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
 
   /*getMensajes() {
     this.service.getMensajes().subscribe(data => console.log(data));
 }*/
 
 }
+
+
