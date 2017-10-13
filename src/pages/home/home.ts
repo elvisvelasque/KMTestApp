@@ -351,11 +351,14 @@ export class HomePage {
         this.numRspndidas++;
       }
     }
+    
     for(var i=0;i<this.preguntas.length;i++){
-      if(this.preguntas[i]["answer"]==this.respuestasAlumno[i]["answer_student"]){
-        this.puntajeFinal+=this.correct_points;
-      }else{
-        this.puntajeFinal-=this.error_points;
+      for(var j=0;j<this.respuestasAlumno.length;j++){
+        if(this.preguntas[i]["id_question"]==this.respuestasAlumno[j]["id_question"]){
+          if(this.preguntas[i]["answer"]==this.respuestasAlumno[j]["answer_student"]){
+            this.puntajeFinal+=this.correct_points;
+          }else this.puntajeFinal-=this.error_points;
+        }
       }
     }
   }
