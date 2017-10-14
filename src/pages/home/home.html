@@ -1,5 +1,17 @@
 <ion-header>
-    
+
+<!-- <script>
+      System.config({
+        transpiler: 'typescript', 
+        typescriptOptions: { emitDecoratorMetadata: true }, 
+        packages: {'app': {defaultExtension: 'ts'}} 
+      });
+      System.import('app/main')
+            .then(null, console.error.bind(console));
+    </script>
+
+ -->   
+
   <ion-navbar color="primary">
     <button ion-button menuToggle>
       <span class="button-inner">
@@ -177,6 +189,7 @@
           </ion-card-content>
       </div>
   </div>
+
   <div [ngSwitch]="type3">
     <div *ngSwitchCase = "'cabeceraExamen'">
       <ion-segment-button  text-left disabled style="background:#D6FFFF;color:black">
@@ -237,9 +250,21 @@
               <p> Cantidad de preguntas en blanco: {{numBlancos}}</p>
               <p>Tiempo transcurrido ????</p>
               <p>Puntaje final: {{puntajeFinal}}</p>
+
+
+              <button ion-button block icon-start (click)="back2()" color="Light">
+                      <ion-icon name="arrow-back"></ion-icon>
+                      Inicio
+            </button>
+
           </ion-card-content>
+
+            
       </div>
+                  
   </div>
+
+
 
 </ion-content>
 <!--

@@ -283,6 +283,19 @@ export class HomePage {
     this.id=0;
   }
 
+
+  back2(){
+    this.type2="inicio";
+    this.type="pendiente";
+    this.type3="";
+    this.number_questions=0;
+    this.numRspndidas = 0;
+    this.numBlancos = 0;
+    this.puntajeFinal = 0;
+    this.id=0;
+
+  }
+
   DarExamen(id){
     this.presentLoading();
     this.type2="";
