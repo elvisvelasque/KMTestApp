@@ -28,7 +28,7 @@ export class MyApp {
               public menuCtrl: MenuController,
               private service: ServiceProvider) {
     //si el usuario está logeado, la página raíz es loginPage, de lo contrario seria HomePage
-    if (this.service.isLogged() === false) {
+    if (!this.service.isLogged()) {
       this.rootPage = LoginPage;
     } else {
       this.rootPage = HomePage;

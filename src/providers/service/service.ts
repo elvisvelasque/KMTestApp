@@ -19,7 +19,7 @@ const url="https://kmtest.victoralin10.com/api/";
 
 @Injectable()
 export class ServiceProvider {
-  
+
   api: string = 'http://localhost:8000/';
   api2: string = 'http://localhost:8000/login';
 
@@ -48,7 +48,11 @@ export class ServiceProvider {
 
       this.http.post(url+'auth/login', JSON.stringify(data), {headers: headers})
         .subscribe(dat => {
-          observer.next(dat.json());
+          let response = dat.json();
+          if (response.success) {
+            window.localStorage.setItem("credentials", JSON.stringify(response));
+          }
+          observer.next(response);
           observer.complete();
         });
     });
@@ -76,15 +80,11 @@ export class ServiceProvider {
   }*/
 
   isLogged() {
-    if (window.localStorage.getItem('token')) {
-      return true;
-    } else {
-      return false;
-    }
+    return window.localStorage.getItem('token');
   }
 
   logout() {
-    window.localStorage.getItem('token');
+    window.localStorage.removeItem('token');
     return true;
   }
 

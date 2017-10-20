@@ -1,6 +1,6 @@
 page-login {
   .backgroundImgA {
-    background-image: url('../assets/fondo1.png')
+    background-image: url('../../assets/fondo1.png')
   }
   .scroll-content {
     align-content: center;
@@ -11,7 +11,7 @@ page-login {
   }
 
   .backgroundImgB {
-    background-image: url('../assets/logo1.png')
+    background-image: url('../../assets/logo1.png')
   }
   .scroll-content {
     align-content: center;
@@ -40,7 +40,7 @@ page-login {
     margin-bottom: 10px;
     background: rgba(255, 255, 255, 0.5);
     border: medium none;
-    .item-input, {
+    .item-input {
       color: #fff;
     }
     *:-moz-placeholder {
