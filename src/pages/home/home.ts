@@ -113,6 +113,7 @@ export class HomePage{
   option4:string="";
   option5:string="";
 
+  
   numRspndidas:number=0;
   numBlancos:number=0;
   puntajeFinal:number=0;
@@ -243,24 +244,24 @@ export class HomePage{
 
   }
 
+  finalizo(){
+    setTimeout(()=>{
+      if(!this.timer.hasFinished())this.finalizo();
+      else this.presentAlert();
+    },1000)
+  }
+
   DarExamen(id){
     this.presentLoading();
     this.type2="";
     this.type="";
     this.type3="cabeceraExamen";
     this.preguntas=[];
-    this.duracionExamen = 10;//this.DuracionActual(this.end_datetime);
-    setTimeout((result) => {
+    this.duracionExamen = 100;//this.DuracionActual(this.end_datetime);
+    setTimeout((result) => {//inicia el contador del examen
       this.timer.startTimer();
-      /*if(this.timer.hasFinished()){
-        //this.presentAlert();
-        //this.type3="resultado";
-        console.log("acabo dog!");
-      }*/
+      this.finalizo();//saber si acabo el tiempo
     }, 1000);
-    /*setTimeout(()=>{
-      console.log(this.timer.hasFinished());
-    },1000);*/
 
     this.service.getPreguntas(this.data["token"],id).subscribe(
       data => {
@@ -281,10 +282,6 @@ export class HomePage{
         console.log(err);
       }
     );
-    
-    /*setTimeout(()=>{// futuro relojito!!!
-      this.timer.startTimer();
-    },1000)*/
   }
 
   iraPregunta(idPregunta){
@@ -302,6 +299,11 @@ export class HomePage{
     }
   }
 
+  guardarOption(value,e){
+    if(e.checked) this.answerStudent+=value;
+    else this.answerStudent-=value;
+  }
+
   guardarRpta(idPregunta){
     let primero=true;
     for(var i=0;i<this.respuestasAlumno.length;i++){
@@ -313,8 +315,6 @@ export class HomePage{
     if(primero){
       this.respuestasAlumno.push(new rptaAlumno(idPregunta+1,this.answerStudent*1));
     }
-    
-    //;
     console.log(this.respuestasAlumno);
   }
 
@@ -337,6 +337,7 @@ export class HomePage{
         }
       }
     }
+    this.respuestasAlumno = [];
   }
 
   goToLoginPage() {
@@ -397,9 +398,16 @@ export class HomePage{
 
   presentAlert() {
     const alert = this.alertCtrl.create({
-      title: 'El examen ha concluido',
+      title: 'Examen Concluido',
       subTitle: '',
-      buttons: ['Dismiss']
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.obtenerPuntaje();
+          }
+        },
+      ]
     });
     alert.present();
   }

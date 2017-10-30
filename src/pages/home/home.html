@@ -203,26 +203,26 @@
           <ion-card-title>{{id_question}}</ion-card-title>
           <p>{{question}}</p>
         </ion-card-content>
-        <ion-list radio-group [(ngModel)]="answerStudent">
+        <ion-list>
           <ion-item>
             <ion-label>a) {{option1}}</ion-label>
-            <ion-radio value="1"></ion-radio>
+            <ion-checkbox (ionChange)=guardarOption(1,$event)></ion-checkbox>
           </ion-item>
           <ion-item>
             <ion-label>b) {{option2}}</ion-label>
-            <ion-radio value="2"></ion-radio>
+            <ion-checkbox (ionChange)=guardarOption(2,$event)></ion-checkbox>
           </ion-item>
           <ion-item>
             <ion-label>c) {{option3}}</ion-label>
-            <ion-radio value="3"></ion-radio>
+            <ion-checkbox (ionChange)=guardarOption(4,$event)></ion-checkbox>
           </ion-item>
           <ion-item>
             <ion-label>d) {{option4}}</ion-label>
-            <ion-radio value="4"></ion-radio>
+            <ion-checkbox (ionChange)=guardarOption(8,$event)></ion-checkbox>
           </ion-item>
           <ion-item>
             <ion-label>e) {{option5}}</ion-label>
-            <ion-radio value="5"></ion-radio>
+            <ion-checkbox (ionChange)=guardarOption(16,$event)></ion-checkbox>
           </ion-item>
       </ion-list>
       </ion-card>

@@ -56,10 +56,7 @@ export class TimerComponent{
             this.timer.secondsRemaining--;
             this.timer.displayTime = this.getSecondsAsDigitalClock(this.timer.secondsRemaining);
             if(this.timer.secondsRemaining>0) this.timerTick();
-            else {
-                this.timer.hasFinished = true;
-                this.presentAlert();
-            }
+            else this.timer.hasFinished = true;
         },1000);
     }
 
@@ -73,22 +70,5 @@ export class TimerComponent{
 
     formato(param:number){
         return (param<10)?"0"+param:param.toString();
-    }
-
-    presentAlert() {
-        let alert = this.alertCtrl.create({
-          title: 'Examen concluido',
-          subTitle: '',
-          buttons: [
-            {
-                text: 'Ok',
-                handler: () => {
-                    this.navCtrl.setRoot('HomePage');
-                }
-            },
-          ]
-        });
-        alert.present();
-      }
-    
+    }   
 }
