@@ -1,8 +1,7 @@
-<ion-card *ngIf="timer">
-    <ion-item class="no-bottom-border item">
-        <button ion-button *ngIf="timeInSeconds && timeInSeconds>0" large full clear class="timer-button timer-text">{{timer.displayTime}}</button>
-    </ion-item>
-    <ion-item class="no-bottom-border" *ngIf="timeInSeconds && timeInSeconds>0">
+<div *ngIf="timer">
+        <!--<button ion-button *ngIf="timeInSeconds && timeInSeconds>0" large full clear class="timer-button timer-text">{{timer.displayTime}}</button>-->
+        <p>fin del examen: {{timer.displayTime}}</p>
+    <!--<ion-item class="no-bottom-border" *ngIf="timeInSeconds && timeInSeconds>0">
         <button ion-button icon-left clear color="danger" small (click)="initTimer()" item-left *ngIf="!timer.runTimer && (timer.hasStarted || timer.hasFinished) || timer.hasFinished">
             <ion-icon name="refresh"></ion-icon>
             Reset
@@ -19,5 +18,5 @@
             <ion-icon name="play"></ion-icon>
             Start
         </button>
-    </ion-item>
-</ion-card>
+    </ion-item>-->
+</div>

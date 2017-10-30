@@ -1,4 +1,4 @@
-import {Component,ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {LoadingController, NavController, IonicPage,NavParams,AlertController} from 'ionic-angular';
 
 import {InicioexamenPage} from '../inicioexamen/inicioexamen';
@@ -78,7 +78,7 @@ export class Pregunta {
   templateUrl: 'home.html',
 })
 
-export class HomePage {
+export class HomePage{
   // @ViewChild('mySlider') slider: Slides;
   // slides:any;
 
@@ -117,6 +117,8 @@ export class HomePage {
   numBlancos:number=0;
   puntajeFinal:number=0;
 
+  duracionExamen:number=0;
+
   constructor(public navCtrl: NavController, 
               private navParams: NavParams,
               public service: ServiceProvider,
@@ -128,6 +130,9 @@ export class HomePage {
     this.data = this.navParams.get('data');//datos token pasados a la vista home
     this.examenPendiente();//muestra los examenes pendientes
   }
+
+  /*ngAfterViewInit(){
+  }*/
 
 //data local
   EnDataLocal() {
@@ -162,7 +167,7 @@ export class HomePage {
     );
   }
 
-//pasar a la hoja de inicio del examen
+//informacion del examen
   ViewIExamen(exam) {
     //this.navCtrl.push(InicioexamenPage);
     this.type2="examenPendiente";
@@ -176,6 +181,31 @@ export class HomePage {
     this.id=exam.id;
   }
 
+  Duracion(start,end){
+    let inicio = new Date(start);
+    let fin = new Date(end);
+    let secini = inicio.getUTCHours()*3600+inicio.getUTCMinutes()*60+inicio.getUTCSeconds();
+    let secfin = fin.getUTCHours()*3600+fin.getUTCMinutes()*60+fin.getUTCSeconds();
+    let result = secfin-secini;
+    return this.getTime(result);
+  }
+  
+  DuracionActual(end){
+    let inicio = new Date();
+    let fin = new Date(end);
+    let inicioSec = inicio.getHours()*3600+inicio.getMinutes()*60+inicio.getSeconds();
+    let finSec = fin.getUTCHours()*3600+fin.getUTCMinutes()*60+fin.getUTCSeconds();
+    return inicioSec-finSec;
+  }
+
+  getTime(inputSeconds:number){
+    var sec_num = parseInt(inputSeconds.toString(),10);
+    var hours = Math.floor(sec_num/3600);
+    var minutes = Math.floor((sec_num-(hours*3600))/60);
+    var seconds = sec_num-(hours*3600)-(minutes*60);
+    return this.addo(hours)+":"+this.addo(minutes)+":"+this.addo(seconds);
+  }
+
   cambio(horadia){
     let format = new Date(horadia);
     return this.addo(format.getUTCHours())+":"+this.addo(format.getUTCMinutes())+":"+this.addo(format.getUTCSeconds());
@@ -184,7 +214,6 @@ export class HomePage {
     let format = new Date(horadia);
     return this.addo(format.getUTCFullYear())+"-"+this.addo(format.getUTCMonth())+"-"+this.addo(format.getUTCDay());
   }
-
   addo(comp){
     return (((comp+"").length==1)?"0"+comp:comp);
   }
@@ -220,6 +249,19 @@ export class HomePage {
     this.type="";
     this.type3="cabeceraExamen";
     this.preguntas=[];
+    this.duracionExamen = 10;//this.DuracionActual(this.end_datetime);
+    setTimeout((result) => {
+      this.timer.startTimer();
+      /*if(this.timer.hasFinished()){
+        //this.presentAlert();
+        //this.type3="resultado";
+        console.log("acabo dog!");
+      }*/
+    }, 1000);
+    /*setTimeout(()=>{
+      console.log(this.timer.hasFinished());
+    },1000);*/
+
     this.service.getPreguntas(this.data["token"],id).subscribe(
       data => {
         let tests = data["data"];
@@ -351,6 +393,15 @@ export class HomePage {
       ]
     });
     confirm.present();
+  }
+
+  presentAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'El examen ha concluido',
+      subTitle: '',
+      buttons: ['Dismiss']
+    });
+    alert.present();
   }
 }
 

@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {HomePage} from './home';
-
+import {TimerComponent} from '../timer/timer';
 
 @NgModule({
   declarations: [
-    HomePage,
+    HomePage,TimerComponent
   ],
   imports: [
     IonicPageModule.forChild(HomePage),

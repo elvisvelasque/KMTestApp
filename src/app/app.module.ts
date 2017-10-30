@@ -11,7 +11,6 @@ import {ExamenPage} from '../pages/examen/examen';
 //import {FinexamenPage} from '../pages/finexamen/finexamen';
 import {ServiceProvider} from '../providers/service/service';
 import {HttpModule} from '@angular/http';
-import {TimerComponent} from '../assets/js/timer';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import {TimerComponent} from '../assets/js/timer';
     ExamenPage,
     //FinexamenPage,
     AdminPage,
-    TimerComponent
   ],
   imports: [
     BrowserModule,

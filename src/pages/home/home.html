@@ -166,7 +166,7 @@
             <p> Peso de Preguntas incorrectas: {{error_points}}</p>
             <p>Fecha del examen: {{getFecha(start_datetime)}}</p>
             <p>Inicio del examen: {{cambio(start_datetime)}}</p>
-            <!--<p>Duracion: {{duracion(cambio(start_datetime),cambio(end_datetime),getFecha(start_datetime))}}</p>-->
+            <p>Duracion: {{Duracion(start_datetime,end_datetime)}}</p>
             <p>Fin del examen: {{cambio(end_datetime)}}</p>
         
             <!--<button ion-button (click)="DarExamen()" color="danger">Seguir con el examen</button>-->
@@ -195,8 +195,7 @@
       <ion-segment-button  text-left disabled style="background:#D6FFFF;color:black">
           <p>Nombre del Examen: {{nombreExamen}}</p>
           <p>Cantidad de Preguntas: {{number_questions}}</p>
-          <p>Duracion:???</p>
-          <!--<timer #timer timeInSeconds="60"></timer>-->
+          <timer [timeInSeconds]="duracionExamen"></timer>
       </ion-segment-button>
       <ion-card class="card">
         <img [src]="picture">

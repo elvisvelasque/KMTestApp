@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {AlertController, IonicPage, Loading, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {AdminPage} from '../admin/admin';
 import {HomePage} from '../home/home';
@@ -11,6 +11,7 @@ import 'rxjs/add/operator/map';
   templateUrl: 'login.html',
 })
 export class LoginPage {
+
   loading: Loading;
   registerCredentials = {username: '', password: ''};
   alumnos: any[];

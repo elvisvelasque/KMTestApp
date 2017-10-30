@@ -1,17 +1,18 @@
 import {Component, Input} from '@angular/core';
 import {ITimer} from './itimer';
+import { AlertController, NavController } from 'ionic-angular';
+import {HomePage} from '../home/home';
 
 @Component({
     selector: 'timer',
-    templateUrl: 'app/timer.html',
-    styleUrls:['./timer.css']
+    templateUrl: 'timer.html',
+    //styleUrls:['pages/timer/timer.css']
 })
 export class TimerComponent{
 
     @Input() timeInSeconds:number;
     public timer: ITimer;
-
-    constructor(){}
+    constructor(public navCtrl: NavController,public alertCtrl: AlertController){}
 
     ngOnInit(){
         this.initTimer();
@@ -55,7 +56,10 @@ export class TimerComponent{
             this.timer.secondsRemaining--;
             this.timer.displayTime = this.getSecondsAsDigitalClock(this.timer.secondsRemaining);
             if(this.timer.secondsRemaining>0) this.timerTick();
-            else this.timer.hasFinished = true;
+            else {
+                this.timer.hasFinished = true;
+                this.presentAlert();
+            }
         },1000);
     }
 
@@ -70,5 +74,21 @@ export class TimerComponent{
     formato(param:number){
         return (param<10)?"0"+param:param.toString();
     }
+
+    presentAlert() {
+        let alert = this.alertCtrl.create({
+          title: 'Examen concluido',
+          subTitle: '',
+          buttons: [
+            {
+                text: 'Ok',
+                handler: () => {
+                    this.navCtrl.setRoot('HomePage');
+                }
+            },
+          ]
+        });
+        alert.present();
+      }
     
 }
