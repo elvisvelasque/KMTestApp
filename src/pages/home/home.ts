@@ -244,9 +244,10 @@ export class HomePage{
 
   }
 
-  finalizo(){
+ finalizo(){
     setTimeout(()=>{
-      if(!this.timer.hasFinished())this.finalizo();
+      if(this.type3!="cabeceraExamen") return;
+      else if(!this.timer.hasFinished())this.finalizo();
       else this.presentAlert();
     },1000)
   }
