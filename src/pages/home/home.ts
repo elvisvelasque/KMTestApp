@@ -95,6 +95,8 @@ export class HomePage{
   preguntas : Pregunta[]=[];
   answerStudent:number=0;
   respuestasAlumno:rptaAlumno[]=[];
+  estilosIniciales: object[]=[];
+
 
   nombreExamen:string="";
   number_questions:number=0;
@@ -283,9 +285,26 @@ export class HomePage{
         console.log(err);
       }
     );
+    /*var items = document.getElementById("optionsList");
+    var elem = null;
+    for(var i=0;i<5;i++){
+      elem = items.getElementsByTagName("ion-item")[i];
+      this.estilosIniciales[i] = elem.getElementsByTagName("ion-checkbox")[0].getElementsByTagName("button")[0].getElementsByTagName("div")[0].getAttribute("style");
+      console.log(this.estilosIniciales[i]);
+    }*/
   }
 
   iraPregunta(idPregunta){
+    var items = document.getElementById("optionsList");
+    var elem = null;
+    for(var i=0;i<5;i++){
+      console.log(this.estilosIniciales[i]);
+      elem = items.getElementsByTagName("ion-item")[i];
+      elem.setAttribute("class","item item-block item-md item-checkbox");
+      elem.getElementsByTagName("ion-checkbox")[0].getElementsByTagName("div")[0].setAttribute("class","checkbox-icon");
+      elem.getElementsByTagName("ion-checkbox")[0].getElementsByTagName("button")[0].setAttribute("aria-checked","false");
+      //elem.getElementsByTagName("ion-checkbox")[0].getElementsByTagName("button")[0].getElementsByTagName("div")[0].removeAttribute("style");
+    }
     if(idPregunta>-1 && idPregunta<5){
       this.presentLoading();
       this.id_question=this.preguntas[idPregunta]["id_question"];
@@ -300,9 +319,21 @@ export class HomePage{
     }
   }
 
+  //cont=0;
   guardarOption(value,e){
     if(e.checked) this.answerStudent+=value;
     else this.answerStudent-=value;
+    /*if(this.cont==0){
+      this.estilosIniciales.push(e);
+      this.cont=1;
+    }else{
+      var index = this.estilosIniciales.findIndex(x=>x["id"]==e["id"]);
+      console.log(index);
+      if(index==-1){
+        this.estilosIniciales.push(e);
+      }
+    }
+    console.log(this.estilosIniciales);*/
   }
 
   guardarRpta(idPregunta){
