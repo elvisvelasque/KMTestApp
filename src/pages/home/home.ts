@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild,AfterViewInit } from '@angular/core';
 import {LoadingController, NavController, IonicPage,NavParams,AlertController} from 'ionic-angular';
 
 import {InicioexamenPage} from '../inicioexamen/inicioexamen';
@@ -182,6 +182,35 @@ export class HomePage{
     this.start_datetime = exam.start_datetime;
     this.end_datetime = exam.end_datetime;
     this.id=exam.id;
+    this.preguntas=[];
+    this.service.getPreguntas(this.data["token"],exam.id).subscribe(
+      data => {
+        let tests = data["data"];
+        for(var i=0;i<tests.length;i++){
+          this.preguntas.push(new Pregunta(tests[i]["id_question"],tests[i]["id_test"],tests[i]["order"],tests[i]["question"],tests[i]["picture"],tests[i]["option1"],tests[i]["option2"],tests[i]["option3"],tests[i]["option4"],tests[i]["option5"],tests[i]["answer"],tests[i]["correct_points"],tests[i]["error_points"]));
+        }
+        console.log(this.preguntas);
+        setTimeout(()=>{
+          document.getElementById("darExamen").removeAttribute("disabled");
+        },0);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  saveQuestion(id){
+   console.log(this.data["token"]+"--"+this.id+"--"+this.preguntas[id-1]["id_question"]+"--"+this.answerStudent);
+   this.service.saveQuestion(this.data["token"],this.id,this.preguntas[id-1]["id_question"],this.answerStudent).subscribe(
+    data=>{
+      console.log(data);
+    },
+    err=>{
+      console.log(err);
+    }
+   );
+   this.answerStudent=0;
   }
 
   Duracion(start,end){
@@ -259,52 +288,22 @@ export class HomePage{
     this.type2="";
     this.type="";
     this.type3="cabeceraExamen";
-    this.preguntas=[];
     this.duracionExamen = 100;//this.DuracionActual(this.end_datetime);
     setTimeout((result) => {//inicia el contador del examen
       this.timer.startTimer();
       this.finalizo();//saber si acabo el tiempo
     }, 1000);
-
-    this.service.getPreguntas(this.data["token"],id).subscribe(
-      data => {
-        let tests = data["data"];
-        for(var i=0;i<tests.length;i++){
-          this.preguntas.push(new Pregunta(tests[i]["id_question"],tests[i]["id_test"],tests[i]["order"],tests[i]["question"],tests[i]["picture"],tests[i]["option1"],tests[i]["option2"],tests[i]["option3"],tests[i]["option4"],tests[i]["option5"],tests[i]["answer"],tests[i]["correct_points"],tests[i]["error_points"]));
-        }
-        this.id_question=this.preguntas[0]["id_question"];
-        this.question=this.preguntas[0]["question"];
-        this.picture=this.preguntas[0]["picture"];
-        this.option1=this.preguntas[0]["option1"];
-        this.option2=this.preguntas[0]["option2"];
-        this.option3=this.preguntas[0]["option3"];
-        this.option4=this.preguntas[0]["option4"];
-        this.option5=this.preguntas[0]["option5"];
-      },
-      err => {
-        console.log(err);
-      }
-    );
-    /*var items = document.getElementById("optionsList");
-    var elem = null;
-    for(var i=0;i<5;i++){
-      elem = items.getElementsByTagName("ion-item")[i];
-      this.estilosIniciales[i] = elem.getElementsByTagName("ion-checkbox")[0].getElementsByTagName("button")[0].getElementsByTagName("div")[0].getAttribute("style");
-      console.log(this.estilosIniciales[i]);
-    }*/
+    setTimeout(()=>{
+      document.getElementById("pregunta_1").style.display = "block";
+    },0);
   }
 
-  iraPregunta(idPregunta){
-    var items = document.getElementById("optionsList");
-    var elem = null;
-    for(var i=0;i<5;i++){
-      console.log(this.estilosIniciales[i]);
-      elem = items.getElementsByTagName("ion-item")[i];
-      elem.setAttribute("class","item item-block item-md item-checkbox");
-      elem.getElementsByTagName("ion-checkbox")[0].getElementsByTagName("div")[0].setAttribute("class","checkbox-icon");
-      elem.getElementsByTagName("ion-checkbox")[0].getElementsByTagName("button")[0].setAttribute("aria-checked","false");
-      //elem.getElementsByTagName("ion-checkbox")[0].getElementsByTagName("button")[0].getElementsByTagName("div")[0].removeAttribute("style");
-    }
+  iraPregunta(idPregunta,indicador){
+      /*if(idPregunta>0 && idPregunta<6){
+        if(indicador==0) document.getElementById("pregunta_"+(idPregunta+1)).style.display="none";
+        else document.getElementById("pregunta_"+(idPregunta-1)).style.display="none";
+        document.getElementById("pregunta_"+(idPregunta)).style.display="block";
+      }*/
     if(idPregunta>-1 && idPregunta<5){
       this.presentLoading();
       this.id_question=this.preguntas[idPregunta]["id_question"];
@@ -319,21 +318,28 @@ export class HomePage{
     }
   }
 
-  //cont=0;
+  goBack(id){
+    if(id>1){
+      document.getElementById("pregunta_"+(id)).style.display="none";
+      document.getElementById("pregunta_"+(id-1)).style.display="block";
+      this.saveQuestion(id);
+    }
+  }
+
+  goForward(id){
+    if(id<this.preguntas.length){
+      document.getElementById("pregunta_"+(id)).style.display="none";
+      document.getElementById("pregunta_"+(id+1)).style.display="block";
+      this.saveQuestion(id);
+    }else{
+      this.endQuestion();
+    }
+  }
+
   guardarOption(value,e){
     if(e.checked) this.answerStudent+=value;
     else this.answerStudent-=value;
-    /*if(this.cont==0){
-      this.estilosIniciales.push(e);
-      this.cont=1;
-    }else{
-      var index = this.estilosIniciales.findIndex(x=>x["id"]==e["id"]);
-      console.log(index);
-      if(index==-1){
-        this.estilosIniciales.push(e);
-      }
-    }
-    console.log(this.estilosIniciales);*/
+    console.log(this.answerStudent);
   }
 
   guardarRpta(idPregunta){
@@ -384,14 +390,14 @@ export class HomePage{
     this.loader.present();
   }
 
-  showRadio() {
+  showRadio(id) {
     let alert = this.alertCtrl.create();
     alert.setTitle('Ir a la pregunta');
     for(var i=0;i<this.preguntas.length;i++){
       alert.addInput({
         type: 'radio',
         label: 'Pregunta '+(i+1),
-        value: ''+(i),
+        value: ''+(i+1),
         checked: false
       });
     }
@@ -400,20 +406,23 @@ export class HomePage{
     alert.addButton({
       text: 'OK',
       handler: data => {
-        this.guardarRpta(this.id_question-1);
-        this.iraPregunta((data*1));
+        document.getElementById("pregunta_"+id).style.display="none";
+        document.getElementById("pregunta_"+(data)).style.display="block";
+        this.saveQuestion(id);
       }
     });
     alert.present();
   }
 
-  showConfirm() {
+  showConfirm(id) {
     let confirm = this.alertCtrl.create({
       title: '¿Estas seguro que deseas terminar el examen?',
       buttons: [
         {
           text: 'SI',
           handler: () => {
+            console.log(id);
+            this.saveQuestion(id);
             this.obtenerPuntaje();
           }
         },
@@ -438,6 +447,18 @@ export class HomePage{
           handler: () => {
             this.obtenerPuntaje();
           }
+        },
+      ]
+    });
+    alert.present();
+  }
+  endQuestion(){
+    const alert = this.alertCtrl.create({
+      title: 'Ya no hay mas preguntas',
+      subTitle: '',
+      buttons: [
+        {
+          text: 'Ok',
         },
       ]
     });

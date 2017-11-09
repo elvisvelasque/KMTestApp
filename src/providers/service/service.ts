@@ -146,8 +146,23 @@ export class ServiceProvider {
     });
   }
 
-
-
+  saveQuestion(token,id_exam,id_question,answer){
+    return Observable.create(observer=>{
+      let headers = new Headers();
+      headers.append('x-access-token',token);
+      var data = {
+        id_attempt:id_exam,
+        id_question:id_question,
+        answer:answer
+      }
+      console.log(data);
+      this.http.post(url+'attempt/'+id_exam+'/answer/'+id_question,JSON.stringify(data),{headers:headers})
+        .subscribe(dat=>{
+          observer.next(dat.json());
+          observer.complete();
+        })
+    });
+  }
 
   /*getMensajes() {
     return this.http.get(this.url)

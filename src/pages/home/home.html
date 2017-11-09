@@ -179,7 +179,7 @@
                     </button>
                   </ion-col>
                 <ion-col col-6>
-                  <button ion-button block icon-end (click)="DarExamen(id);" color="secondary">
+                  <button id="darExamen" ion-button block icon-end (click)="DarExamen(id);" color="secondary" disabled>
                     Iniciar Examen
                     <ion-icon name="star" style="margin-left:5px;"></ion-icon>
                   </button>
@@ -197,47 +197,50 @@
           <p>Cantidad de Preguntas: {{number_questions}}</p>
           <timer [timeInSeconds]="duracionExamen"></timer>
       </ion-segment-button>
-      <ion-card class="card" id="optionsList">
-        <img [src]="picture">
-        <ion-card-content class="card-content">
-          <ion-card-title>{{id_question}}</ion-card-title>
-          <p>{{question}}</p>
-        </ion-card-content>
-        <ion-list>
-          <ion-item>
-            <ion-label>a) {{option1}}</ion-label>
-            <ion-checkbox (ionChange)=guardarOption(1,$event)></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>b) {{option2}}</ion-label>
-            <ion-checkbox (ionChange)=guardarOption(2,$event)></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>c) {{option3}}</ion-label>
-            <ion-checkbox (ionChange)=guardarOption(4,$event)></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>d) {{option4}}</ion-label>
-            <ion-checkbox (ionChange)=guardarOption(8,$event)></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>e) {{option5}}</ion-label>
-            <ion-checkbox (ionChange)=guardarOption(16,$event)></ion-checkbox>
-          </ion-item>
-      </ion-list>
-      </ion-card>
-      <ion-segment>
-          <ion-segment-button (click)="guardarRpta(id_question-1);iraPregunta(id_question-2)" color="Light">
-              <ion-icon name="ios-arrow-back"></ion-icon>
-          </ion-segment-button>
-          <ion-segment-button (click)="guardarRpta(id_question-1);iraPregunta(id_question);" color="Light">
-              <ion-icon name="ios-arrow-forward"></ion-icon>
-          </ion-segment-button>
-          <ion-segment-button (click)="showRadio()" color="Light">
-              <ion-icon name="ios-arrow-up"></ion-icon>
-          </ion-segment-button>
-      </ion-segment>
-      <button ion-button full color="danger" (click)="guardarRpta(id_question-1);showConfirm()">Terminar</button>
+      <div *ngFor="let pregunta of preguntas">
+        <ion-card class="card" id="pregunta_{{pregunta['id_question']}}" style="display:none">
+          <img [src]="pregunta['picture']">
+          <ion-card-content class="card-content">
+            <ion-card-title>{{pregunta["id_question"]}}</ion-card-title>
+            <p>{{pregunta["question"]}}</p>
+          </ion-card-content>
+          <ion-list>
+            <ion-item>
+              <ion-label>a) {{pregunta["option1"]}}</ion-label>
+              <ion-checkbox (ionChange)=guardarOption(1,$event)></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>b) {{pregunta["option2"]}}</ion-label>
+              <ion-checkbox (ionChange)=guardarOption(2,$event)></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>c) {{pregunta["option3"]}}</ion-label>
+              <ion-checkbox (ionChange)=guardarOption(4,$event)></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>d) {{pregunta["option4"]}}</ion-label>
+              <ion-checkbox (ionChange)=guardarOption(8,$event)></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>e) {{pregunta["option5"]}}</ion-label>
+              <ion-checkbox (ionChange)=guardarOption(16,$event)></ion-checkbox>
+            </ion-item>
+          </ion-list>
+          <br>
+          <ion-segment>
+            <ion-segment-button (click)="goBack(pregunta['id_question'])" color="Light">
+                <ion-icon name="ios-arrow-back"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button (click)="goForward(pregunta['id_question']);" color="Light">
+                <ion-icon name="ios-arrow-forward"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button (click)="showRadio(pregunta['id_question'])" color="Light">
+                <ion-icon name="ios-arrow-up"></ion-icon>
+            </ion-segment-button>
+          </ion-segment>
+          <button ion-button full color="danger" (click)="showConfirm(pregunta['id_question'])">Terminar</button>
+        </ion-card>
+      </div>
     </div>
   </div>
 
