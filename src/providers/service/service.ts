@@ -155,8 +155,22 @@ export class ServiceProvider {
         id_question:id_question,
         answer:answer
       }
-      console.log(data);
       this.http.post(url+'attempt/'+id_exam+'/answer/'+id_question,JSON.stringify(data),{headers:headers})
+        .subscribe(dat=>{
+          observer.next(dat.json());
+          observer.complete();
+        })
+    });
+  }
+
+  attempt(token,id_test){
+    return Observable.create(observer=>{
+      let headers = new Headers();
+      headers.append('x-access-token',token);
+      var data={
+        id_test:id_test
+      }
+      this.http.post(url+'attempt/new',JSON.stringify(data),{headers:headers})
         .subscribe(dat=>{
           observer.next(dat.json());
           observer.complete();

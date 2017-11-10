@@ -1,0 +1,23 @@
+export  class TestPendiente {
+    id: number;
+    name: string;
+    subject:string;
+    start_datetime:string;
+    end_datetime:string;
+    number_questions:number;
+    correct_points:number;
+    error_points:number;
+    attempts_allowed:number; 
+  
+    constructor(id: number, name: string, subject: string, start_datetime: string, end_datetime: string, number_questions: number, correct_points: number, error_points: number,attempts_allowed: number) {
+      this.id = id;
+      this.name = name;
+      this.subject = subject;
+      this.start_datetime = start_datetime;
+      this.end_datetime = end_datetime;
+      this.number_questions = number_questions;
+      this.correct_points = correct_points;
+      this.error_points = error_points;
+      this.attempts_allowed = attempts_allowed;
+    }
+  }

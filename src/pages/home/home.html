@@ -1,17 +1,5 @@
 <ion-header>
 
-<!-- <script>
-      System.config({
-        transpiler: 'typescript', 
-        typescriptOptions: { emitDecoratorMetadata: true }, 
-        packages: {'app': {defaultExtension: 'ts'}} 
-      });
-      System.import('app/main')
-            .then(null, console.error.bind(console));
-    </script>
-
- -->   
-
   <ion-navbar color="primary">
     <button ion-button menuToggle>
       <span class="button-inner">
@@ -39,55 +27,7 @@
     </ion-buttons>
   </ion-navbar>
 
-
-  <!--<ion-navbar color="facebook">
-
-    <button ion-button  icon-letf menuToggle="left" start>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-
-    <ion-title>Home Blank</ion-title>
-
-
-    <button ion-buttons  menuToggle="right"  (click)="goToLoginPage()" end>
-      <ion-icon name="close"></ion-icon>
-      Salir
-    </button>
-
-  </ion-navbar>-->
-
 </ion-header>
-
-<!--<ion-header>
-<ion-navbar color="facebook">
-  <button ion-button menuToggle>
-    <ion-icon name= "menu"></ion-icon>
-  </button>
-  <ion-title>Examen Blank</ion-title>
-</ion-navbar>
-</ion-header>-->
-
-
-<!--<ion-toolbar>-->
-<!--<ion-buttons start>
-  <button ion-button icon-only>
-    <ion-icon name="create"></ion-icon>
-  </button>
-</ion-buttons>-->
-<!--<ion-segment [(ngModel)="type"] >
-  <ion-segment-button  value="pendiente" (click)=" EnDataLocal()">
-    Examen Pendiente
-  </ion-segment-button>
-  <ion-segment-button value="pasado">
-    Examenes pasados
-  </ion-segment-button>
- </ion-segment>-->
-<!--<ion-buttons end>
-  <button ion-button icon-only>
-    <ion-icon name="more"></ion-icon>
-  </button>
-</ion-buttons>-->
-<!--</ion-toolbar>-->
 
 <ion-content padding>
 
@@ -108,94 +48,63 @@
           Examen Pendiente
         </ion-segment-button>
         <br/>
-        <ion-segment-button value="pasado" (click)=" EnDataLocal()">
+        <ion-segment-button value="pasado">
           Examenes pasados
         </ion-segment-button>
       </ion-segment>
     </div>
   </div>
-  
+
   <div [ngSwitch]="type">
+
     <div *ngSwitchCase = "'pendiente'">
-      <ion-list *ngSwitchCase="'pendiente'">
-        <ion-item-sliding *ngFor="let ex of examen">
-          <button ion-item (click)="ViewIExamen(ex)">
-            <h1>{{ex?.id}}</h1>
-            <p>{{ex?.name}}</p>
-            <ion-icon name="paper-outline" item-right></ion-icon>
-          </button>
-        </ion-item-sliding>
-      </ion-list>
+        <ion-list>
+          <ion-item-sliding *ngFor="let ex of examen">
+            <button ion-item (click)="ViewIExamen(ex)">
+              <h1>{{ex?.id}}</h1>
+              <p>{{ex?.name}}</p>
+              <ion-icon name="paper-outline" item-right></ion-icon>
+            </button>
+          </ion-item-sliding>
+        </ion-list>
     </div>
 
-        <!--<ion-item-options side="left" >
-          <button ion-button color="primary" (click)="View(member)">
-            <ion-icon name="eye"></ion-icon>
-            View
-          </button>
-          <button ion-button color="secondary" (click)="update(member)">
-            <ion-icon name="open"></ion-icon>
-            Edit
-          </button>
-        </ion-item-options>
-        <ion-item-options side="right">
-          <button ion-button color="danger" (click)="Delete(member.mem_mid)">
-            <ion-icon name="trash"></ion-icon>
-            Delete
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
-
-    <ion-list *ngSwitchCase="'pasado'">
-      <ion-item-sliding *ngFor="let user of users">
-        <ion-item>
-          <h1>{{user.email}}</h1>
-          <p>{{user.codigoUni}}</p>
-        </ion-item>
-      </ion-item-sliding>
-    </ion-list>
--->
-  </div>
-  <div [ngSwitch]="type2">
-      <div *ngSwitchCase = "'examenPendiente'">
-          <ion-card-content class="card-content" center text-center>
-            <p>Nombre del Examen: {{nombreExamen}}</p>
-            <p>Cantidad de Preguntas: {{number_questions}}</p>
-            <p> Peso de Preguntas correctas: {{correct_points}}</p>
-            <p> Peso de Preguntas incorrectas: {{error_points}}</p>
-            <p>Fecha del examen: {{getFecha(start_datetime)}}</p>
-            <p>Inicio del examen: {{cambio(start_datetime)}}</p>
-            <p>Duracion: {{Duracion(start_datetime,end_datetime)}}</p>
-            <p>Fin del examen: {{cambio(end_datetime)}}</p>
-        
-            <!--<button ion-button (click)="DarExamen()" color="danger">Seguir con el examen</button>-->
-            <ion-grid>
-              <ion-row>
-                  <ion-col col-6>
-                    <button ion-button block icon-start (click)="back()" color="Light">
-                      <ion-icon name="arrow-back"></ion-icon>
-                      Atras
-                    </button>
-                  </ion-col>
-                <ion-col col-6>
-                  <button id="darExamen" ion-button block icon-end (click)="DarExamen(id);" color="secondary" disabled>
-                    Iniciar Examen
-                    <ion-icon name="star" style="margin-left:5px;"></ion-icon>
-                  </button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-content>
-      </div>
-  </div>
-
-  <div [ngSwitch]="type3">
-    <div *ngSwitchCase = "'cabeceraExamen'">
-      <ion-segment-button  text-left disabled style="background:#D6FFFF;color:black">
+    <div *ngSwitchCase = "'examenPendiente'">
+        <ion-card-content class="card-content" center text-center>
           <p>Nombre del Examen: {{nombreExamen}}</p>
           <p>Cantidad de Preguntas: {{number_questions}}</p>
-          <timer [timeInSeconds]="duracionExamen"></timer>
+          <p> Peso de Preguntas correctas: {{correct_points}}</p>
+          <p> Peso de Preguntas incorrectas: {{error_points}}</p>
+          <p>Fecha del examen: {{getFecha(start_datetime)}}</p>
+          <p>Inicio del examen: {{cambio(start_datetime)}}</p>
+          <p>Duracion: {{Duracion(start_datetime,end_datetime)}}</p>
+          <p>Fin del examen: {{cambio(end_datetime)}}</p>
+      
+          <!--<button ion-button (click)="DarExamen()" color="danger">Seguir con el examen</button>-->
+          <ion-grid>
+            <ion-row>
+                <ion-col col-6>
+                  <button ion-button block icon-start (click)="back()" color="Light">
+                    <ion-icon name="arrow-back"></ion-icon>
+                    Atras
+                  </button>
+                </ion-col>
+              <ion-col col-6>
+                <button id="darExamen" ion-button block icon-end (click)="DarExamen(id);" color="secondary" disabled>
+                  Iniciar Examen
+                  <ion-icon name="star" style="margin-left:5px;"></ion-icon>
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+    </div>
+
+    <div *ngSwitchCase = "'cabeceraExamen'">
+      <ion-segment-button  text-left disabled style="background:#D6FFFF;color:black">
+        <p>Nombre del Examen: {{nombreExamen}}</p>
+        <p>Cantidad de Preguntas: {{number_questions}}</p>
+        <timer [timeInSeconds]="duracionExamen"></timer>
       </ion-segment-button>
       <div *ngFor="let pregunta of preguntas">
         <ion-card class="card" id="pregunta_{{pregunta['id_question']}}" style="display:none">
@@ -242,38 +151,20 @@
         </ion-card>
       </div>
     </div>
+
+    <div *ngSwitchCase = "'resultado'">
+        <ion-card-content class="card-content" center text-center>
+            <p>RESULTADO DE EXAMEN DE EVALUACION</p>
+            <p>Cantidad de preguntas: {{number_questions}}</p>
+            <p>Cantidad de preguntas respondidas: {{numRspndidas}}</p>
+            <p> Cantidad de preguntas en blanco: {{numBlancos}}</p>
+            <p>Tiempo transcurrido {{DuracionAlumnoExamen()}}</p>
+            <p>Puntaje final: {{puntajeFinal}}</p>
+            <button ion-button block icon-start (click)="back2()" color="Light">
+                    <ion-icon name="arrow-back"></ion-icon>
+                    Inicio
+          </button>
+        </ion-card-content>
+    </div>  
   </div>
-
-  <div [ngSwitch]="type3">
-      <div *ngSwitchCase = "'resultado'">
-          <ion-card-content class="card-content" center text-center>
-              <p>RESULTADO DE EXAMEN DE EVALUACION</p>
-              <p>Cantidad de preguntas: {{number_questions}}</p>
-              <p>Cantidad de preguntas respondidas: {{numRspndidas}}</p>
-              <p> Cantidad de preguntas en blanco: {{numBlancos}}</p>
-              <p>Tiempo transcurrido ????</p>
-              <p>Puntaje final: {{puntajeFinal}}</p>
-
-
-              <button ion-button block icon-start (click)="back2()" color="Light">
-                      <ion-icon name="arrow-back"></ion-icon>
-                      Inicio
-            </button>
-
-          </ion-card-content>
-
-            
-      </div>
-                  
-  </div>
-
-
-
 </ion-content>
-<!--
-<style>
-  ion-scroll {
-    width: 100%;
-    height: 100%;
-  }
-</style>-->
