@@ -14,12 +14,13 @@ export class LoginPage {
 
   loading: Loading;
   registerCredentials = {username: '', password: ''};
+  nuevoUsuario = {username:'',password:'',first_name:'',last_name:'',email:''};
   alumnos: any[];
   loader: any;
   Email;
   codigoUni;
   FormLoginE;
-
+  type="login";
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private loadingCtrl: LoadingController,
@@ -38,6 +39,30 @@ export class LoginPage {
         this.showError("Access Denied");
       }
     });
+  }
+
+  public register(){
+    this.service.register(this.nuevoUsuario).subscribe(data => {
+      if(data.success){
+        this.presentAlert();
+      }
+    });
+  }
+
+  presentAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'Registrado Correctamente',
+      subTitle: '',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.type="login";
+          }
+        },
+      ]
+    });
+    alert.present();
   }
 
   showLoading() {
@@ -88,5 +113,8 @@ export class LoginPage {
     );
   }
 
-
+  createAccount(){
+    this.type="register";
+    console.log("register");
+  }
 }

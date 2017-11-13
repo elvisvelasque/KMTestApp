@@ -58,6 +58,31 @@ export class ServiceProvider {
     });
   }
 
+  public register(newUser){
+    if (newUser.username == null || newUser.password === null || newUser.first_name === null || newUser.last_name === null || newUser.email === null) {
+      return Observable.throw("por favor ingrese los campos ");
+    }
+
+    return Observable.create(observer => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      let data = {
+        username: newUser.username,
+        password: newUser.password,
+        first_name: newUser.first_name,
+        last_name: newUser.last_name,
+        email: newUser.email
+      };
+
+      this.http.post(url+'student/auth/sign-up', JSON.stringify(data), {headers: headers})
+        .subscribe(dat => {
+          observer.next(dat.json());
+          observer.complete();
+        });
+    });
+  }
+
   public getUserInfo(): User {
     return this.currentUser;
   }

@@ -33,37 +33,70 @@
     <ion-col col-lg-4 col-md-2 col-1>
     </ion-col>
       <ion-col col-lg-4 col-md-8 col-10>
-            <ion-card>
-              <br>
-              <ion-card-header>
-                <img src="./assets/logo1.png" width="100" height="100"/>
-                Plataforma de KM
-              </ion-card-header>
-              <ion-card-content>
-
-                <form #FormLogin="ngForm" (ngSubmit)="login()">
-                  <ion-item>
-                    <ion-label floating>Usuario</ion-label>
-                    <ion-input [(ngModel)]="registerCredentials.username" name="username" type="text" required></ion-input>
-                  </ion-item>
-                  <ion-item>
-                    <ion-label floating>Clave</ion-label>
-                    <ion-input [(ngModel)]="registerCredentials.password" name="password" type="password" required></ion-input>
-                  </ion-item>
-
-                    <button class="button button-block button-calm" [disabled]="!FormLogin.form.valid" type="submit" style="background-color: #F7FE2E; color: #000000" full ion-button>ENTRAR
-                    </button>
-
-                </form>
-                <br>
-                <!--<button ion-button block color="danger" outline (click)="presentLoading()" round>
-                Login In
-                (click)="presentLoading()"
-                </button>-->
-
-              </ion-card-content>
-            </ion-card>
-            <!--<button class="botom" ion-button clear full color="light"> Sign up</button>-->
+          <div [ngSwitch]="type">
+              <div *ngSwitchCase = "'login'">
+                  <ion-card>
+                      <br>
+                      <ion-card-header>
+                        <img src="./assets/logo1.png" width="100" height="100"/>
+                        Plataforma de KM
+                      </ion-card-header>
+                      <ion-card-content>
+                        <form #FormLogin="ngForm" (ngSubmit)="login()">
+                          <ion-item>
+                            <ion-label floating>Usuario</ion-label>
+                            <ion-input [(ngModel)]="registerCredentials.username" name="username" type="text" required></ion-input>
+                          </ion-item>
+                          <ion-item>
+                            <ion-label floating>Clave</ion-label>
+                            <ion-input [(ngModel)]="registerCredentials.password" name="password" type="password" required></ion-input>
+                          </ion-item>
+        
+                            <button class="button button-block button-calm" [disabled]="!FormLogin.form.valid" type="submit" style="background-color: #F7FE2E; color: #000000" full ion-button>ENTRAR
+                            </button>
+                            <button ion-button class="register-btn" type="button" block clear (click)="createAccount()">Crear nueva cuenta</button>
+                        </form>
+                        <br>
+                      </ion-card-content>
+                    </ion-card>
+              </div>
+              <div *ngSwitchCase = "'register'">
+                  <ion-card>
+                      <br>
+                      <ion-card-header>
+                        CREAR NUEVA CUENTA
+                      </ion-card-header>
+                      <ion-card-content>
+                        <form #FormLogin2="ngForm" (ngSubmit)="register()">
+                          <ion-item>
+                            <ion-label floating>Usuario</ion-label>
+                            <ion-input [(ngModel)]="nuevoUsuario.username" name="username" type="text" required></ion-input>
+                          </ion-item>
+                          <ion-item>
+                            <ion-label floating>Clave</ion-label>
+                            <ion-input [(ngModel)]="nuevoUsuario.password" name="password" type="password" required></ion-input>
+                          </ion-item>
+                          <ion-item>
+                            <ion-label floating>Nombres</ion-label>
+                            <ion-input [(ngModel)]="nuevoUsuario.first_name" name="first_name" type="text" required></ion-input>
+                          </ion-item>
+                          <ion-item>
+                            <ion-label floating>Apellido</ion-label>
+                            <ion-input [(ngModel)]="nuevoUsuario.last_name" name="last_name" type="text" required></ion-input>
+                          </ion-item>
+                          <ion-item>
+                            <ion-label floating>E-mail</ion-label>
+                            <ion-input [(ngModel)]="nuevoUsuario.email" name="email" type="email" required></ion-input>
+                          </ion-item>
+        
+                            <button class="button button-block button-calm" [disabled]="!FormLogin2.form.valid" type="submit" style="background-color: #F7FE2E; color: #000000" full ion-button>REGISTRARSE
+                            </button>
+                        </form>
+                        <br>
+                      </ion-card-content>
+                    </ion-card>
+              </div>
+            </div>
     </ion-col>
   <ion-col col-lg-4 col-md-2 col-1>
   </ion-col>
