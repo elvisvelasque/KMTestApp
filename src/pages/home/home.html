@@ -33,8 +33,10 @@
 
   <ion-menu [content]="mycontent">
       <ion-content>
-        <ion-list>
-          <p>some menu content, could be list items</p>
+          <ion-list class="list">
+          <button class="item item-block" (click)="iraPerfil()">
+            MI PERFIL
+          </button>
         </ion-list>
       </ion-content>
   </ion-menu>
@@ -147,9 +149,13 @@
                 <ion-icon name="ios-arrow-up"></ion-icon>
             </ion-segment-button>
           </ion-segment>
-          <button ion-button full color="danger" (click)="showConfirm(pregunta['id_question'])">Terminar</button>
+          <button ion-button full color="danger" (click)="showConfirm(pregunta['id_question'])" class="botonTerminar" style="display:none">Terminar</button>
         </ion-card>
       </div>
+    </div>
+
+    <div *ngSwitchCase = "'miperfil'">
+      <p>mi perfil</p>
     </div>
 
     <div *ngSwitchCase = "'resultado'">
@@ -164,7 +170,150 @@
                     <ion-icon name="arrow-back"></ion-icon>
                     Inicio
           </button>
+         <button ion-button block icon-start (click)="verSolucionario()" color="secondary">
+            <ion-icon name="arrow-forward"></ion-icon>
+                    Ver Solucionario
+         </button>
         </ion-card-content>
-    </div>  
+    </div>
+    <div *ngSwitchCase = "'verSolucionario'">
+      <ion-card>
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/nin-live.png"/>
+        <ion-card-content>
+          <ion-card-title>
+            Pregunta 1
+          </ion-card-title>
+          <p>
+            a) respuesta 1
+          </p>
+        </ion-card-content>
+        <ion-row class="row" no-padding>
+          <ion-col class="col" text-right>
+            <button clear color="danger" icon-start ion-button small class="disable-hover" onclick="window.open('https://www.youtube.com/watch?v=mGal9pSE9Cs','_blank');">
+              <span class="button-inner">
+                <ion-icon name="share-alt" role="img" aria-label="share alt"></ion-icon>
+                Video
+              </span>
+              <div class="button-effect"></div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card> 
+
+      <ion-card>
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/nin-live.png"/>
+        <ion-card-content>
+          <ion-card-title>
+            Pregunta 1
+          </ion-card-title>
+          <p>
+            a) respuesta 1
+          </p>
+        </ion-card-content>
+        <ion-row class="row" no-padding>
+          <ion-col class="col" text-right>
+            <button clear color="danger" icon-start ion-button small class="disable-hover" onclick="window.open('https://www.youtube.com/watch?v=mGal9pSE9Cs','_blank');">
+              <span class="button-inner">
+                <ion-icon name="share-alt" role="img" aria-label="share alt"></ion-icon>
+                Video
+              </span>
+              <div class="button-effect"></div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card> 
+
+      <ion-card>
+      
+        <ion-card-content>
+          <ion-card-title>
+            Pregunta 2
+          </ion-card-title>
+          <p>
+            b) respuesta 2
+          </p>
+        </ion-card-content>
+        <ion-row class="row" no-padding>
+          <ion-col class="col" text-right>
+            <button clear color="danger" icon-start ion-button small class="disable-hover" onclick="window.open('https://www.youtube.com/watch?v=mGal9pSE9Cs','_blank');">
+              <span class="button-inner">
+                <ion-icon name="share-alt" role="img" aria-label="share alt"></ion-icon>
+                Video
+              </span>
+              <div class="button-effect"></div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card> 
+
+      <ion-card>
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/nin-live.png"/>
+        <ion-card-content>
+          <ion-card-title>
+            Pregunta 3
+          </ion-card-title>
+          <p>
+            a) respuesta 1
+          </p>
+        </ion-card-content>
+        <ion-row class="row" no-padding>
+          <ion-col class="col" text-right>
+            <button clear color="danger" icon-start ion-button small class="disable-hover" onclick="window.open('https://www.youtube.com/watch?v=mGal9pSE9Cs','_blank');">
+              <span class="button-inner">
+                <ion-icon name="share-alt" role="img" aria-label="share alt"></ion-icon>
+                Video
+              </span>
+              <div class="button-effect"></div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card> 
+
+      <ion-card>
+        <ion-card-content>
+          <ion-card-title>
+            Pregunta 4
+          </ion-card-title>
+          <p>
+            a) respuesta 1
+          </p>
+        </ion-card-content>
+        <ion-row class="row" no-padding>
+          <ion-col class="col" text-right>
+            <button clear color="danger" icon-start ion-button small class="disable-hover" onclick="window.open('https://www.youtube.com/watch?v=mGal9pSE9Cs','_blank');">
+              <span class="button-inner">
+                <ion-icon name="share-alt" role="img" aria-label="share alt"></ion-icon>
+                Video
+              </span>
+              <div class="button-effect"></div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card> 
+
+      
+      <ion-card>
+        <ion-card-content>
+          <ion-card-title>
+            Pregunta 5
+          </ion-card-title>
+          <p>
+            a) respuesta 1
+          </p>
+        </ion-card-content>
+        <ion-row class="row" no-padding>
+          <ion-col class="col" text-right>
+            <button clear color="danger" icon-start ion-button small class="disable-hover" onclick="window.open('https://www.youtube.com/watch?v=mGal9pSE9Cs','_blank');">
+              <span class="button-inner">
+                <ion-icon name="share-alt" role="img" aria-label="share alt"></ion-icon>
+                Video
+              </span>
+              <div class="button-effect"></div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card> 
+
+    </div>
   </div>
 </ion-content>

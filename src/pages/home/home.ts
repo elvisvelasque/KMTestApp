@@ -216,7 +216,7 @@ export class HomePage{
   DarExamen(id){
     this.presentLoading();
     this.type="cabeceraExamen";
-    this.duracionExamen = 5;//this.DuracionActual(this.end_datetime);
+    this.duracionExamen = 100;//this.DuracionActual(this.end_datetime);
     this.inicioExamen = new Date();
     setTimeout((result) => {//inicia el contador del examen
       this.timer.startTimer();
@@ -225,6 +225,10 @@ export class HomePage{
     setTimeout(()=>{
       document.getElementById("pregunta_1").style.display = "block";
     },0);
+    setTimeout(()=>{
+      document.getElementsByClassName("botonTerminar")[this.preguntas.length-1].removeAttribute("style");
+      document.getElementsByClassName("botonTerminar")[this.preguntas.length-1].setAttribute("style","display:block");
+    },0)
   }
 
   posicion:number=1;
@@ -274,6 +278,14 @@ export class HomePage{
       }
     }
     this.respuestasAlumno = [];
+  }
+
+  verSolucionario(){
+    this.type="verSolucionario";
+  }
+
+  iraPerfil(){
+    this.type="miperfil";
   }
 
   goToLoginPage() {
