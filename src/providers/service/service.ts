@@ -16,6 +16,7 @@ export class User {
 }
 
 const url="https://kmtest.victoralin10.com/api/";
+const url2 = "https://evaluapp.victoralin10.com/api/"
 
 @Injectable()
 export class ServiceProvider {
@@ -46,7 +47,7 @@ export class ServiceProvider {
         password: credentials.password
       };
 
-      this.http.post(url+'auth/login', JSON.stringify(data), {headers: headers})
+      this.http.post(url2+'student/auth/sign-in', JSON.stringify(data), {headers: headers})
         .subscribe(dat => {
           let response = dat.json();
           if (response.success) {

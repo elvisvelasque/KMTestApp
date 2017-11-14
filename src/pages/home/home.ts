@@ -1,5 +1,5 @@
 import { Component, ViewChild,AfterViewInit } from '@angular/core';
-import {LoadingController, NavController, IonicPage,NavParams,AlertController} from 'ionic-angular';
+import {LoadingController, NavController, IonicPage,NavParams,AlertController,MenuController} from 'ionic-angular';
 
 import {InicioexamenPage} from '../inicioexamen/inicioexamen';
 import {LoginPage} from '../login/login';
@@ -57,7 +57,8 @@ export class HomePage{
               private navParams: NavParams,
               public service: ServiceProvider,
               public loadingCtrl: LoadingController,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              public menuCtrl:MenuController) {
    
     this.type = "pendiente";
     this.type2 = "inicio";
@@ -286,6 +287,8 @@ export class HomePage{
 
   iraPerfil(){
     this.type="miperfil";
+    this.type2="";
+    this.menuCtrl.close();
   }
 
   goToLoginPage() {

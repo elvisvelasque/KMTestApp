@@ -32,13 +32,16 @@
 <ion-content padding>
 
   <ion-menu [content]="mycontent">
-      <ion-content>
-          <ion-list class="list">
-          <button class="item item-block" (click)="iraPerfil()">
+    <ion-content>
+      <ion-list style="margin-right:-80px;margin-top:-10px;">
+        <ion-item style="margin-left:-50px;">
+          <button class="item item-block" (click)="iraPerfil()" ion-item style="margin-left:20px;margin-top:-10px;border-bottom:1px solid black;">
+            <ion-icon name="person"></ion-icon>
             MI PERFIL
           </button>
-        </ion-list>
-      </ion-content>
+        </ion-item>
+      </ion-list>
+    </ion-content>
   </ion-menu>
   <ion-nav #mycontent [root]="homePage"></ion-nav>
 
