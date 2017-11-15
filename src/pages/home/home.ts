@@ -21,6 +21,7 @@ export class rptaAlumno{//despues seras eliminado
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
+  //styleUrls:['pages/home/home.css'] no funciona
 })
 
 export class HomePage{
