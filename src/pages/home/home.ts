@@ -46,6 +46,8 @@ export class HomePage{
   error_points:number=0;
   start_datetime:string="";
   end_datetime:string="";
+  attempts_allowed:number=0;
+  duration_time:number=0;
   id:number=0;
   
   numRspndidas:number=0;
@@ -53,6 +55,13 @@ export class HomePage{
   puntajeFinal:number=0;
 
   duracionExamen:number=0;
+
+  Institucion:string="";
+  misInstituciones:object[]=[];
+  Locaciones:string="";
+  misLocaciones:object[]=[];
+  miperfil={pnombres:'',papellidos:'',pemail:'',pnumTel:'',pnumcell:'',pnumDoc:'',pcumpleanios:'',plocaciones:'',pdireccion:'',pgenero:'',pInstitucion:''};
+
 
   constructor(public navCtrl: NavController, 
               private navParams: NavParams,
@@ -70,11 +79,11 @@ export class HomePage{
 //extrayendo la data de examenes
   examenPendiente() {
     this.examen = [];
-    this.service.getDataExamenLocal(this.data["token"]).subscribe(
+    this.service.getDataExamenLocal(this.data["data"]["session_id"]).subscribe(
       data => {
         let tests = data["data"];
         for(var i=0;i<tests.length;i++){
-          this.examen.push(new TestPendiente(tests[i]["id_test"],tests[i]["name"],tests[i]["subject"],tests[i]["start_datetime"],tests[i]["end_datetime"],tests[i]["number_questions"],tests[i]["correct_points"],tests[i]["error_points"],tests[i]["attempts_allowed"])); 
+          this.examen.push(new TestPendiente(tests[i]["id"],tests[i]["course_period_id"],tests[i]["name"],tests[i]["subject"],tests[i]["start_datetime"],tests[i]["end_datetime"],tests[i]["questions_count"],tests[i]["correct_points"],tests[i]["error_points"],tests[i]["attempts_allowed"],tests[i]["duration_time"])); 
         }
       },
       err => {
@@ -100,6 +109,8 @@ export class HomePage{
           this.error_points = exam.error_points;
           this.start_datetime = exam.start_datetime;
           this.end_datetime = exam.end_datetime;
+          this.attempts_allowed = exam.attempts_allowed;
+          this.duration_time = exam.duration_time;
           this.id=exam.id;
           this.preguntas=[];
           this.service.getPreguntas(this.data["token"],exam.id).subscribe(
@@ -173,7 +184,7 @@ export class HomePage{
   }
   getFecha(horadia){
     let format = new Date(horadia);
-    return this.addo(format.getUTCFullYear())+"-"+this.addo(format.getUTCMonth())+"-"+this.addo(format.getUTCDay());
+    return this.addo(format.getUTCFullYear())+"-"+this.addo(format.getUTCMonth())+"-"+this.addo(format.getUTCDate());
   }
   addo(comp){
     return (((comp+"").length==1)?"0"+comp:comp);
@@ -290,6 +301,30 @@ export class HomePage{
     this.type="miperfil";
     this.type2="";
     this.menuCtrl.close();
+    this.service.getInstitution(this.data["data"]["session_id"]).subscribe((data)=>
+    {
+      var datos = data["data"];
+      for(var i=0;i<datos.length;i++){
+        this.misInstituciones.push({
+          value:datos[i]["id"],
+          name:datos[i]["code"]
+        });
+      }
+    });
+
+    this.service.getGeoloc(this.data["data"]["session_id"]).subscribe((data)=>{
+      var datos = data["data"];
+      for(var i=0;i<datos.length;i++){
+        this.misLocaciones.push({
+          value:datos[i]["id"],
+          name:datos[i]["name"]
+        });
+      }
+    });
+  }
+
+  actualizarPerfil(){
+    console.log("actualizado!!") //falta terminar;
   }
 
   goToLoginPage() {

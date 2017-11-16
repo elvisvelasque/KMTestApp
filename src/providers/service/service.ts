@@ -148,11 +148,11 @@ export class ServiceProvider {
 
   }
 
-  getDataExamenLocal(token) {
+  getDataExamenLocal(session) {
     return Observable.create(observer => {
       let headers = new Headers();
-      headers.append('x-access-token',token);
-      this.http.get(url+'test', {headers: headers})
+      headers.append('s-session',session);
+      this.http.get(url2+'student/evaluation', {headers: headers})
         .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();
@@ -197,6 +197,30 @@ export class ServiceProvider {
         id_test:id_test
       }
       this.http.post(url+'attempt/new',JSON.stringify(data),{headers:headers})
+        .subscribe(dat=>{
+          observer.next(dat.json());
+          observer.complete();
+        })
+    });
+  }
+
+  getInstitution(session){
+    return Observable.create(observer=>{
+      let headers = new Headers();
+      headers.append('s-session',session);
+      this.http.get(url2+'student/institution',{headers:headers})
+        .subscribe(dat=>{
+          observer.next(dat.json());
+          observer.complete();
+        })
+    });
+  }
+
+  getGeoloc(session){
+    return Observable.create(observer=>{
+      let headers = new Headers();
+      headers.append('s-session',session);
+      this.http.get(url2+'student/geoloc',{headers:headers})
         .subscribe(dat=>{
           observer.next(dat.json());
           observer.complete();

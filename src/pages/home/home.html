@@ -80,10 +80,10 @@
           <p>Cantidad de Preguntas: {{number_questions}}</p>
           <p> Peso de Preguntas correctas: {{correct_points}}</p>
           <p> Peso de Preguntas incorrectas: {{error_points}}</p>
-          <p>Fecha del examen: {{getFecha(start_datetime)}}</p>
-          <p>Inicio del examen: {{cambio(start_datetime)}}</p>
-          <p>Duracion: {{Duracion(start_datetime,end_datetime)}}</p>
-          <p>Fin del examen: {{cambio(end_datetime)}}</p>
+          <p>Intentos Permitidos: {{attempts_allowed}}</p>
+          <p>Inicio del examen: {{getFecha(start_datetime)}}</p>
+          <p>Fin del examen: {{getFecha(end_datetime)}}</p>
+          <p>Duracion: {{getTime(duration_time)}}</p>
       
           <!--<button ion-button (click)="DarExamen()" color="danger">Seguir con el examen</button>-->
           <ion-grid>
@@ -163,141 +163,158 @@
         <ion-card-content>
           <ion-card-title>MI PERFIL</ion-card-title>
         </ion-card-content>
-        <table style="width:90%">
-          <tr>
-            <td style="width:20%">
-              <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="contact" aria-label="First Name"></ion-icon>
-            </td>
-            <td style="width:80%">
-                <ion-item>
-                    <ion-label floating>Nombres</ion-label>
-                    <ion-input name="username" type="text" required></ion-input>
+        <form #FormLogin="ngForm" (ngSubmit)="actualizarPerfil()">
+          <table style="width:90%">
+            <tr>
+              <td style="width:20%">
+                <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="contact" aria-label="Nombres"></ion-icon>
+              </td>
+              <td style="width:80%">
+                  <ion-item>
+                      <ion-label floating>Nombres</ion-label>
+                      <ion-input [(ngModel)]="miperfil.pnombres" name="pnombres" type="text" required></ion-input>
+                    </ion-item>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:20%">
+                <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="people" aria-label="Last Name"></ion-icon>
+              </td>
+              <td style="width:80%">
+                  <ion-item>
+                      <ion-label floating>Apellidos</ion-label>
+                      <ion-input [(ngModel)]="miperfil.papellidos" name="papellidos" type="text" required></ion-input>
+                    </ion-item>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:20%">
+                <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="at" aria-label="Last Name"></ion-icon>
+              </td>
+              <td style="width:80%">
+                  <ion-item>
+                      <ion-label floating>E-mail</ion-label>
+                      <ion-input [(ngModel)]="miperfil.pemail" name="pemail" type="email" required></ion-input>
+                    </ion-item>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:20%">
+                <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="call" aria-label="Last Name"></ion-icon>
+              </td>
+              <td style="width:80%">
+                  <ion-item>
+                      <ion-label floating>Numero de telefono</ion-label>
+                      <ion-input [(ngModel)]="miperfil.pnumTel" name="pnumTel" type="tel" required></ion-input>
+                    </ion-item>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:20%">
+                <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="logo-whatsapp" aria-label="Last Name"></ion-icon>
+              </td>
+              <td style="width:80%">
+                  <ion-item>
+                    <ion-label floating>Numero de telefono celular</ion-label>
+                    <ion-input [(ngModel)]="miperfil.pnumcell" name="pnumcell" type="tel" required></ion-input>
                   </ion-item>
-            </td>
-          </tr>
-          <tr>
-            <td style="width:20%">
-              <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="people" aria-label="Last Name"></ion-icon>
-            </td>
-            <td style="width:80%">
-                <ion-item>
-                    <ion-label floating>Apellidos</ion-label>
-                    <ion-input name="username" type="text" required></ion-input>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:20%">
+                <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="paper" aria-label="Last Name"></ion-icon>
+              </td>
+              <td style="width:80%">
+                  <ion-item>
+                    <ion-label floating>tipo de documento</ion-label>
+                    <ion-select [(ngModel)]="miperfil.ptipoDocumento" name="ptipoDocumento">
+                      <ion-option [value]="1">DNI</ion-option>
+                      <ion-option [value]="2">Pasaporte</ion-option>
+                    </ion-select>
                   </ion-item>
-            </td>
-          </tr>
-          <tr>
-            <td style="width:20%">
-              <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="at" aria-label="Last Name"></ion-icon>
-            </td>
-            <td style="width:80%">
-                <ion-item>
-                    <ion-label floating>E-mail</ion-label>
-                    <ion-input name="username" type="email" required></ion-input>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:20%">
+                <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="finger-print" aria-label="Last Name"></ion-icon>
+              </td>
+              <td style="width:80%">
+                  <ion-item>
+                    <ion-label floating>Numero de documento</ion-label>
+                    <ion-input [(ngModel)]="miperfil.pnumDoc" name="pnumDoc" type="text" maxlength="15" required></ion-input>
                   </ion-item>
-            </td>
-          </tr>
-          <tr>
-            <td style="width:20%">
-              <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="call" aria-label="Last Name"></ion-icon>
-            </td>
-            <td style="width:80%">
-                <ion-item>
-                    <ion-label floating>Numero de telefono</ion-label>
-                    <ion-input name="username" type="tel" required></ion-input>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:20%">
+                <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="ice-cream" aria-label="Last Name"></ion-icon>
+              </td>
+              <td style="width:80%">
+                  <ion-item>
+                    <ion-label floating>Cumpleaños</ion-label>
+                    <ion-input [(ngModel)]="miperfil.pcumpleanios" name="pcumpleanios" type="text" required></ion-input>
                   </ion-item>
-            </td>
-          </tr>
-          <tr>
-            <td style="width:20%">
-              <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="logo-whatsapp" aria-label="Last Name"></ion-icon>
-            </td>
-            <td style="width:80%">
-                <ion-item>
-                  <ion-label floating>Numero de telefono celular</ion-label>
-                  <ion-input name="username" type="tel" required></ion-input>
-                </ion-item>
-            </td>
-          </tr>
-          <tr>
-            <td style="width:20%">
-              <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="paper" aria-label="Last Name"></ion-icon>
-            </td>
-            <td style="width:80%">
-                <ion-item>
-                  <ion-label floating>tipo de documento</ion-label>
-                  <ion-input name="username" type="tel" required></ion-input>
-                </ion-item>
-            </td>
-          </tr>
-          <tr>
-            <td style="width:20%">
-              <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="finger-print" aria-label="Last Name"></ion-icon>
-            </td>
-            <td style="width:80%">
-                <ion-item>
-                  <ion-label floating>Numero de documento</ion-label>
-                  <ion-input name="username" type="tel" required></ion-input>
-                </ion-item>
-            </td>
-          </tr>
-          <tr>
-            <td style="width:20%">
-              <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="ice-cream" aria-label="Last Name"></ion-icon>
-            </td>
-            <td style="width:80%">
-                <ion-item>
-                  <ion-label floating>Cumpleaños</ion-label>
-                  <ion-input name="username" type="text" required></ion-input>
-                </ion-item>
-            </td>
-          </tr>
-          <tr>
-            <td style="width:20%">
-              <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="pin" aria-label="Last Name"></ion-icon>
-            </td>
-            <td style="width:80%">
-                <ion-item>
-                  <ion-label floating>localizacion</ion-label>
-                  <ion-input name="username" type="text" required></ion-input>
-                </ion-item>
-            </td>
-          </tr>
-          <tr>
-            <td style="width:20%">
-              <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="locate" aria-label="Last Name"></ion-icon>
-            </td>
-            <td style="width:80%">
-                <ion-item>
-                  <ion-label floating>Direccion</ion-label>
-                  <ion-input name="username" type="text" required></ion-input>
-                </ion-item>
-            </td>
-          </tr>
-          <tr>
-            <td style="width:20%">
-              <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="contacts" aria-label="Last Name"></ion-icon>
-            </td>
-            <td style="width:80%">
-                <ion-item>
-                  <ion-label floating>Genero</ion-label>
-                  <ion-input name="username" type="text" required></ion-input>
-                </ion-item>
-            </td>
-          </tr>
-          <tr>
-            <td style="width:20%">
-              <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="school" aria-label="Last Name"></ion-icon>
-            </td>
-            <td style="width:80%">
-                <ion-item>
-                  <ion-label floating>Institucion</ion-label>
-                  <ion-input name="username" type="text" required></ion-input>
-                </ion-item>
-            </td>
-          </tr>
-        </table>
-        
+              </td>
+            </tr>
+            <tr>
+              <td style="width:20%">
+                <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="pin" aria-label="Last Name"></ion-icon>
+              </td>
+              <td style="width:80%">
+                  <ion-item>
+                    <ion-label floating>localizacion</ion-label>
+                    <ion-select [(ngModel)]="miperfil.plocaciones" name="plocaciones" required>
+                        <ion-option *ngFor="let lo of misLocaciones" [value]="lo.value">{{lo.name}}</ion-option>
+                      </ion-select>
+                  </ion-item>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:20%">
+                <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="locate" aria-label="Last Name"></ion-icon>
+              </td>
+              <td style="width:80%">
+                  <ion-item>
+                    <ion-label floating>Direccion</ion-label>
+                    <ion-input [(ngModel)]="miperfil.pdireccion" name="username" type="text" maxlength="256" required></ion-input>
+                  </ion-item>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:20%">
+                <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="contacts" aria-label="Last Name"></ion-icon>
+              </td>
+              <td style="width:80%">
+                  <ion-item>
+                    <ion-label floating>Genero</ion-label>
+                    <ion-select [(ngModel)]="miperfil.pgenero" name="pgenero" required>
+                      <ion-option [value]="M">Masculino</ion-option>
+                      <ion-option [value]="F">Femenino</ion-option>
+                    </ion-select>
+                  </ion-item>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:20%">
+                <ion-icon style="color: #20A5FF;font-size:40px;padding-left:25px;padding-top:25px;" name="school" aria-label="Last Name"></ion-icon>
+              </td>
+              <td style="width:80%">
+                  <ion-item>
+                    <ion-label floating>Institucion</ion-label>
+                    <ion-select [(ngModel)]="miperfil.pInstitucion"  name="pInstitucion" required>
+                      <ion-option *ngFor="let mi of misInstituciones" [value]="mi.value">{{mi.name}}</ion-option>
+                    </ion-select>
+                  </ion-item>
+              </td>
+            </tr>
+            <br>
+            <tr>
+              <td colspan="2" style="padding-left:15px;">
+                  <button ion-button full color="secondary" [disabled]="!FormLogin.form.valid" type="submit">ACTUALIZAR PERFIL</button>
+              </td>
+            </tr>
+          </table>
+        </form>
       </ion-card>
     </div>
 
