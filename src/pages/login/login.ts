@@ -98,6 +98,10 @@ export class LoginPage {
     }
   }
 
+   back3(){
+    this.type="login";
+  }
+
   EnDataLocal() {
     this.presentLoading();
     this.service.getLocalData().subscribe(

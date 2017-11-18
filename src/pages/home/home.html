@@ -34,16 +34,26 @@
   <ion-menu [content]="mycontent">
     <ion-content>
       <ion-list style="margin-right:-80px;margin-top:-10px;">
-        <ion-item style="margin-left:-50px;">
+         <ion-item style="margin-left:-50px;">
           <button class="item item-block" (click)="iraPerfil()" ion-item style="margin-left:20px;margin-top:-10px;border-bottom:1px solid black;">
             <ion-icon name="person"></ion-icon>
             MI PERFIL
           </button>
         </ion-item>
+
+        <ion-item style="margin-left:-50px;">
+          <button class="item item-block" (click)="irAlumnos()" ion-item style="margin-left:20px;margin-top:-10px;border-bottom:1px solid black;">
+            <ion-icon name="person"></ion-icon>
+            ALUMNOS
+          </button>
+        </ion-item>
+
       </ion-list>
     </ion-content>
   </ion-menu>
   <ion-nav #mycontent [root]="homePage"></ion-nav>
+
+
 
   <div [ngSwitch]="type2">
     <div *ngSwitchCase = "'inicio'">
@@ -143,18 +153,90 @@
           <br>
           <ion-segment>
             <ion-segment-button (click)="goBack(pregunta['id_question'])" color="Light">
-                <ion-icon name="ios-arrow-back"></ion-icon>
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-back"></ion-icon>
+                    Atras
+                </span>
             </ion-segment-button>
+
             <ion-segment-button (click)="goForward(pregunta['id_question']);" color="Light">
-                <ion-icon name="ios-arrow-forward"></ion-icon>
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-forward"></ion-icon>
+                    Siguiente
+                </span>
             </ion-segment-button>
+
             <ion-segment-button (click)="showRadio(pregunta['id_question'])" color="Light">
-                <ion-icon name="ios-arrow-up"></ion-icon>
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-up"></ion-icon>
+                    
+                </span>
             </ion-segment-button>
           </ion-segment>
           <button ion-button full color="danger" (click)="showConfirm(pregunta['id_question'])" class="botonTerminar" style="display:none">Terminar</button>
         </ion-card>
       </div>
+    </div>
+
+
+
+
+    <div *ngSwitchCase = "'listAlumnos'">
+
+
+
+    <ion-list class="">
+
+    <ion-list-header class="item item-ios list-header list-header-ios">
+     <div class="item-inner">
+      <div class="input-wrapper">
+         Alumnos     
+      </div>
+     </div>
+    </ion-list-header>
+
+    <ion-item class="item item-block item-ios">
+      <ion-avatar item-start="">
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-finn.png">
+      </ion-avatar><!--<div class="item-inner"><div class="input-wrapper"><ion-label class="label label-ios">-->
+    <h2>My Neighbor Totoro</h2>
+    <p>Hayao Miyazaki • 1988</p>
+    <button ion-button clear item-end>View</button>
+    <!--</ion-label>
+    </div>
+    </div>-->
+    </ion-item>
+
+    <ion-item class="item item-block item-ios"><ion-avatar item-start="">
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-han.png">
+      </ion-avatar>
+      <h2>Han</h2>
+      <p>I've got enough on my plate as it is, and I...</p>
+     <button ion-button clear item-end>View</button>
+    </ion-item>
+
+    
+   
+    <ion-item class="item item-block item-ios"><ion-avatar item-start="">
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-rey.png">
+      </ion-avatar>
+      <h2>Han</h2>
+      <p>I've got enough on my plate as it is, and I...</p>
+     <button ion-button clear item-end>View</button>
+    </ion-item>
+
+    <ion-item class="item item-block item-ios"><ion-avatar item-start="">
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
+      </ion-avatar>
+      <h2>Han</h2>
+      <p>I've got enough on my plate as it is, and I...</p>
+     <button ion-button clear item-end>View</button>
+    </ion-item>
+    
+
+
+    </ion-list>
+
     </div>
 
     <div *ngSwitchCase = "'miperfil'">
@@ -313,6 +395,13 @@
                   <button ion-button full color="secondary" [disabled]="!FormLogin.form.valid" type="submit">ACTUALIZAR PERFIL</button>
               </td>
             </tr>
+             <td colspan="2" style="padding-left:15px;">
+                  <button ion-button block icon-start (click)="back()" color="Light">
+                    <ion-icon name="arrow-back"></ion-icon>
+                    Atras
+                  </button>
+            </td>
+
           </table>
         </form>
       </ion-card>

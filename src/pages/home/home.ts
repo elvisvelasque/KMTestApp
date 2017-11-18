@@ -226,6 +226,7 @@ export class HomePage{
   }
 
   inicioExamen:Date=null;
+
   DarExamen(id){
     this.presentLoading();
     this.type="cabeceraExamen";
@@ -295,6 +296,13 @@ export class HomePage{
 
   verSolucionario(){
     this.type="verSolucionario";
+  }
+
+  irAlumnos(){
+    this.type="listAlumnos";
+    this.type2="";
+    this.menuCtrl.close();
+
   }
 
   iraPerfil(){
