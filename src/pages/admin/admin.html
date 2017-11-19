@@ -1,142 +1,509 @@
 <ion-header>
-  <ion-navbar>
 
-    <button ion-button menuToggle="left" start>
-      <div>
-        <ion-icon name="menu"></ion-icon>
-
-      </div>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <span class="button-inner">
+          <ion-icon name="menu" role="img" aria-label="menu"></ion-icon>
+      </span>
     </button>
-
-    <ion-title>Administrador</ion-title>
+    <div class="toolbar-content">
+      <ion-title class="title">
+        <div class="toolbar-title">
+          MENU
+        </div>
+      </ion-title>
+    </div>
 
     <ion-buttons end>
       <button ion-button icon-only (click)="goToLoginPage()">
-        <div>
-          <label>Salir</label>
-          <ion-icon name="log_out"></ion-icon>
-        </div>
+          <div class="toolbar-content">
+              <ion-title class="title">
+                <div class="toolbar-title">
+                  SALIR
+                </div>
+              </ion-title>
+            </div>
       </button>
     </ion-buttons>
   </ion-navbar>
 
-
-  <!--<ion-navbar color="facebook">
-
-    <button ion-button  icon-letf menuToggle="left" start>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-
-    <ion-title>Home Blank</ion-title>
-
-
-    <button ion-buttons  menuToggle="right"  (click)="goToLoginPage()" end>
-      <ion-icon name="close"></ion-icon>
-      Salir
-    </button>
-
-  </ion-navbar>-->
-
 </ion-header>
-
-<!--<ion-header>
-<ion-navbar color="facebook">
-  <button ion-button menuToggle>
-    <ion-icon name= "menu"></ion-icon>
-  </button>
-  <ion-title>Examen Blank</ion-title>
-</ion-navbar>
-</ion-header>-->
-
-
-<!--<ion-toolbar>-->
-<!--<ion-buttons start>
-  <button ion-button icon-only>
-    <ion-icon name="create"></ion-icon>
-  </button>
-</ion-buttons>-->
-<!--<ion-segment [(ngModel)="type"] >
-  <ion-segment-button  value="pendiente" (click)=" EnDataLocal()">
-    Examen Pendiente
-  </ion-segment-button>
-  <ion-segment-button value="pasado">
-    Examenes pasados
-  </ion-segment-button>
- </ion-segment>-->
-<!--<ion-buttons end>
-  <button ion-button icon-only>
-    <ion-icon name="more"></ion-icon>
-  </button>
-</ion-buttons>-->
-<!--</ion-toolbar>-->
-
 <ion-content padding>
 
-
-  <div>
-    <ion-segment [(ngModel)]="type">
-      <ion-segment-button value="Examen" (click)="examenPendiente()">
-        <!--<ion-segment-button  value="pendiente" (click)="getMensajes()"> -->
-        Exámenes
-      </ion-segment-button>
-      <br/>
-      <ion-segment-button value="Alumno" (click)=" EnDataLocal()">
-        Alumnos
-      </ion-segment-button>
-    </ion-segment>
-  </div>
-  <div [ngSwitch]="type">
-    <!--<div *ngSwitchCase = "'pendiente'">-->
-    <ion-list *ngSwitchCase="'Examen'">
-      <ion-item-sliding *ngFor="let pr of prueba">
-        <button ion-item>
-          <!--<div>
-             <h1>{{ex.email}}</h1>
-            <p>{{ex.codigoUni}}</p>
-          </div>-->
-          <h1>{{pr?.id_tipoExamen}}</h1>
-          <p>{{pr?.descripcion}} </p>
-          <ion-icon name="paper-outline" item-right></ion-icon>
-
-        </button>
-
-
-        <!--<ion-item-options side="left" >
-          <button ion-button color="primary" (click)="View(member)">
-            <ion-icon name="eye"></ion-icon>
-            View
+  <ion-menu [content]="mycontent">
+    <ion-content>
+      <ion-list style="margin-right:-80px;margin-top:-10px;">
+        <ion-item style="margin-left:-50px;">
+          <button class="item item-block" (click)="irAlumnos()" ion-item style="margin-left:20px;margin-top:-10px;border-bottom:1px solid black;">
+            <ion-icon name="person"></ion-icon>
+            ALUMNOS
           </button>
-          <button ion-button color="secondary" (click)="update(member)">
-            <ion-icon name="open"></ion-icon>
-            Edit
-          </button>
-        </ion-item-options>
-        <ion-item-options side="right">
-          <button ion-button color="danger" (click)="Delete(member.mem_mid)">
-            <ion-icon name="trash"></ion-icon>
-            Delete
-          </button>
-        </ion-item-options>-->
-      </ion-item-sliding>
-    </ion-list>
-
-    <ion-list *ngSwitchCase="'Alumno'">
-      <ion-item-sliding *ngFor="let user of users">
-        <ion-item>
-          <h1>{{user.email}}</h1>
-          <p>{{user.codigoUni}}</p>
         </ion-item>
-      </ion-item-sliding>
+
+<ion-item style="margin-left:-50px;">
+          <button class="item item-block" (click)="irCuestionarios()" ion-item style="margin-left:20px;margin-top:-10px;border-bottom:1px solid black;">
+            <ion-icon name="person"></ion-icon>
+            CUESTIONARIOS
+           </button>
+        </ion-item>
+
+      </ion-list>
+    </ion-content>
+
+    
+  </ion-menu>
+  <ion-nav #mycontent [root]="adminPage"></ion-nav>
+
+  <div [ngSwitch]="type">
+    <div *ngSwitchCase = "'listAlumnos'">
+    <ion-list class="">
+
+    <ion-list-header class="item item-ios list-header list-header-ios">
+     <div class="item-inner">
+      <div class="input-wrapper">
+         Alumnos     
+      </div>
+     </div>
+    </ion-list-header>
+
+    <ion-item class="item item-block item-ios">
+      <ion-avatar item-start="">
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-finn.png">
+      </ion-avatar><!--<div class="item-inner"><div class="input-wrapper"><ion-label class="label label-ios">-->
+    <h2>My Neighbor Totoro</h2>
+    <p>Hayao Miyazaki • 1988</p>
+    <button ion-button clear item-end (click)="verExamenes()">View</button>
+    <!--</ion-label>
+    </div>
+    </div>-->
+    </ion-item>
+
+    <ion-item class="item item-block item-ios"><ion-avatar item-start="">
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-han.png">
+      </ion-avatar>
+      <h2>Han</h2>
+      <p>I've got enough on my plate as it is, and I...</p>
+     <button ion-button clear item-end (click)="verExamenes()">View</button>
+    </ion-item>
+
+    
+   
+    <ion-item class="item item-block item-ios"><ion-avatar item-start="">
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-rey.png">
+      </ion-avatar>
+      <h2>Han</h2>
+      <p>I've got enough on my plate as it is, and I...</p>
+     <button ion-button clear item-end (click)="verExamenes()">View</button>
+    </ion-item>
+
+    <ion-item class="item item-block item-ios"><ion-avatar item-start="">
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
+      </ion-avatar>
+      <h2>Han</h2>
+      <p>I've got enough on my plate as it is, and I...</p>
+     <button ion-button clear item-end (click)="verExamenes()">View</button>
+    </ion-item>
     </ion-list>
+    </div>
 
+    <div *ngSwitchCase = "'examenes'">
+        <ion-list>
+          <ion-item-sliding>
+            <button ion-item (click)="ViewIExamen()">
+              <h1>1</h1>
+              <p>Examen 1-puntaje:12-fecha:12-12-2018</p>
+              <ion-icon name="paper-outline" item-right></ion-icon>
+            </button>
+          </ion-item-sliding>
+
+          <ion-item-sliding>
+            <button ion-item (click)="ViewIExamen()">
+              <h1>2</h1>
+              <p>Examen 2-puntaje:12-fecha:16-12-2018</p>
+              <ion-icon name="paper-outline" item-right></ion-icon>
+            </button>
+          </ion-item-sliding>
+          
+          <ion-item-sliding>
+            <button ion-item (click)="ViewIExamen()">
+              <h1>3</h1>
+              <p>Examen 3-puntaje:10-fecha:18-12-2018</p>
+              <ion-icon name="paper-outline" item-right></ion-icon>
+            </button>
+          </ion-item-sliding>
+
+          <ion-item-sliding>
+            <button ion-item (click)="ViewIExamen()">
+              <h1>4</h1>
+              <p>Examen 4-puntaje:18-fecha:20-12-2018</p>
+              <ion-icon name="paper-outline" item-right></ion-icon>
+            </button>
+          </ion-item-sliding>
+
+          <ion-item-sliding>
+            <button ion-item (click)="ViewIExamen()">
+              <h1>5</h1>
+              <p>Examen 5-puntaje:12-fecha:22-12-2018</p>
+              <ion-icon name="paper-outline" item-right></ion-icon>
+            </button>
+          </ion-item-sliding>
+
+        </ion-list>
+    </div>
+
+     <div *ngSwitchCase = "'cabeceraExamen'">
+      <ion-segment-button  text-left disabled style="background:#D6FFFF;color:black">
+        <p>Nombre del Examen: Examen 1</p>
+        <p>Cantidad de Preguntas: 5</p>
+        <p>Fecha: 12-12-2018</p>
+        <p>Puntaje: 12</p>
+      </ion-segment-button>
+      <div>
+        <ion-card class="card" id="pregunta_1" style="display:none">
+          <ion-card-content class="card-content">
+            <ion-card-title>1</ion-card-title>
+            <p>Pregunta 1</p>
+          </ion-card-content>
+          <ion-list>
+            <ion-item>
+              <ion-label>a) Respuesta 1</ion-label>
+              <ion-checkbox checked="true" color="danger"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>b) Respuesta 2</ion-label>
+              <ion-checkbox></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>c) Respuesta 3</ion-label>
+              <ion-checkbox checked="true" color="secondary"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>d) Respuesta 4</ion-label>
+              <ion-checkbox></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>e) Respuesta 5</ion-label>
+              <ion-checkbox></ion-checkbox>
+            </ion-item>
+          </ion-list>
+          <br>
+          <ion-segment>
+            <ion-segment-button (click)="goBack(1)" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-back"></ion-icon>
+                    Atras
+                </span>
+            </ion-segment-button>
+
+            <ion-segment-button (click)="goForward(1);" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-forward"></ion-icon>
+                    Siguiente
+                </span>
+            </ion-segment-button>
+
+            <ion-segment-button (click)="showRadio(1)" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-up"></ion-icon>
+                    
+                </span>
+            </ion-segment-button>
+          </ion-segment>
+          <button ion-button full color="primary" (click)="verExamenes()">Volver</button>
+        </ion-card>
+      </div>
+
+      <div>
+        <ion-card class="card" id="pregunta_2" style="display:none">
+          <ion-card-content class="card-content">
+            <ion-card-title>2</ion-card-title>
+            <p>Pregunta 2</p>
+          </ion-card-content>
+          <ion-list>
+            <ion-item>
+              <ion-label>a) Respuesta 1</ion-label>
+              <ion-checkbox></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>b) Respuesta 2</ion-label>
+              <ion-checkbox checked="true" color="secondary"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>c) Respuesta 3</ion-label>
+              <ion-checkbox></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>d) Respuesta 4</ion-label>
+              <ion-checkbox></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>e) Respuesta 5</ion-label>
+              <ion-checkbox></ion-checkbox>
+            </ion-item>
+          </ion-list>
+          <br>
+          <ion-segment>
+            <ion-segment-button (click)="goBack(2)" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-back"></ion-icon>
+                    Atras
+                </span>
+            </ion-segment-button>
+
+            <ion-segment-button (click)="goForward(2);" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-forward"></ion-icon>
+                    Siguiente
+                </span>
+            </ion-segment-button>
+
+            <ion-segment-button (click)="showRadio(2)" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-up"></ion-icon>
+                    
+                </span>
+            </ion-segment-button>
+          </ion-segment>
+          <button ion-button full color="primary" (click)="verExamenes()">Volver</button>
+        </ion-card>
+      </div>
+
+      <div>
+        <ion-card class="card" id="pregunta_3" style="display:none">
+          <ion-card-content class="card-content">
+            <ion-card-title>3</ion-card-title>
+            <p>Pregunta 3</p>
+          </ion-card-content>
+          <ion-list>
+            <ion-item>
+              <ion-label>a) Respuesta 1</ion-label>
+              <ion-checkbox color="danger"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>b) Respuesta 2</ion-label>
+              <ion-checkbox></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>c) Respuesta 3</ion-label>
+              <ion-checkbox checked="true" color="secondary"></ion-checkbox>
+            </ion-item>
+            <ion-item> 
+              <ion-label>d) Respuesta 4</ion-label>
+              <ion-checkbox checked="true" color="secondary"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>e) Respuesta 5</ion-label>
+              <ion-checkbox checked="true" color="danger"></ion-checkbox>
+            </ion-item>
+          </ion-list>
+          <br>
+          <ion-segment>
+            <ion-segment-button (click)="goBack(3)" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-back"></ion-icon>
+                    Atras
+                </span>
+            </ion-segment-button>
+
+            <ion-segment-button (click)="goForward(3);" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-forward"></ion-icon>
+                    Siguiente
+                </span>
+            </ion-segment-button>
+
+            <ion-segment-button (click)="showRadio(3)" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-up"></ion-icon>
+                    
+                </span>
+            </ion-segment-button>
+          </ion-segment>
+          <button ion-button full color="primary" (click)="verExamenes()">Volver</button>
+        </ion-card>
+      </div>
+
+      <div>
+        <ion-card class="card" id="pregunta_4" style="display:none">
+          <ion-card-content class="card-content">
+            <ion-card-title>4</ion-card-title>
+            <p>Pregunta 4</p>
+          </ion-card-content>
+          <ion-list>
+            <ion-item>
+              <ion-label>a) Respuesta 1</ion-label>
+              <ion-checkbox></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>b) Respuesta 2</ion-label>
+              <ion-checkbox></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>c) Respuesta 3</ion-label>
+              <ion-checkbox checked="true" color="secondary"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>d) Respuesta 4</ion-label>
+              <ion-checkbox checked="true" color="secondary"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>e) Respuesta 5</ion-label>
+              <ion-checkbox></ion-checkbox>
+            </ion-item>
+          </ion-list>
+          <br>
+          <ion-segment>
+            <ion-segment-button (click)="goBack(4)" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-back"></ion-icon>
+                    Atras
+                </span>
+            </ion-segment-button>
+
+            <ion-segment-button (click)="goForward(4);" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-forward"></ion-icon>
+                    Siguiente
+                </span>
+            </ion-segment-button>
+
+            <ion-segment-button (click)="showRadio(4)" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-up"></ion-icon>
+                    
+                </span>
+            </ion-segment-button>
+          </ion-segment>
+          <button ion-button full color="primary" (click)="verExamenes()">Volver</button>
+        </ion-card>
+      </div>
+
+      <div>
+        <ion-card class="card" id="pregunta_5" style="display:none">
+          <ion-card-content class="card-content">
+            <ion-card-title>5</ion-card-title>
+            <p>Pregunta 5</p>
+          </ion-card-content>
+          <ion-list>
+            <ion-item>
+              <ion-label>a) Respuesta 1</ion-label>
+              <ion-checkbox color="danger"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>b) Respuesta 2</ion-label>
+              <ion-checkbox></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>c) Respuesta 3</ion-label>
+              <ion-checkbox></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>d) Respuesta 4</ion-label>
+              <ion-checkbox checked="true" color="secondary"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label>e) Respuesta 5</ion-label>
+              <ion-checkbox checked="true" color="secondary"></ion-checkbox>
+            </ion-item>
+          </ion-list>
+          <br>
+          <ion-segment>
+            <ion-segment-button (click)="goBack(5)" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-back"></ion-icon>
+                    Atras
+                </span>
+            </ion-segment-button>
+
+            <ion-segment-button (click)="goForward(5);" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-forward"></ion-icon>
+                    Siguiente
+                </span>
+            </ion-segment-button>
+
+            <ion-segment-button (click)="showRadio(5)" color="Light">
+                <span class="button-inner">
+                    <ion-icon name="ios-arrow-up"></ion-icon>
+                    
+                </span>
+            </ion-segment-button>
+          </ion-segment>
+          <button ion-button full color="primary" (click)="verExamenes()">Volver</button>
+        </ion-card>
+      </div>
+    </div>
+
+    <div *ngSwitchCase = "'listCuestionarios'">
+
+    <ion-list class="">
+
+    <ion-list-header class="item item-ios list-header list-header-ios">
+     <div class="item-inner">
+      <div class="input-wrapper">
+         Cuestionarios     
+      </div>
+     </div>
+    </ion-list-header>
+   
+    <ion-item class="item item-block item-ios">
+     <ion-icon item-start="" name="leaf" role="img" class="icon icon-ios ion-ios-leaf item-icon" aria-label="leaf">
+     </ion-icon>
+      Cuestionario1
+     <ion-icon (click)="irEmpezar()" item-end="" name="empezar" role="img" class="icon icon-ios icon-ios-secondary ion-ios-rose item-icon" aria-label="rose"> </ion-icon>
+     <ion-icon  (click)="iraPerfil()" item-end="" name="editar" role="img" class="icon icon-ios ion-ios-brush item-icon" aria-label="rose"></ion-icon>
+     <ion-icon (click)="eliminar()" item-end="" name="eliminar" role="img" class="icon icon-ios ion-ios-trash" aria-label="rose"> </ion-icon>
+    </ion-item>
+
+    </ion-list>
+    </div>
+
+    <div *ngSwitchCase = "'empezarTest'">
+
+         <ion-list class="">
+
+         <ion-list-header class="item item-ios list-header list-header-ios">
+          <div class="item-inner">
+           <div class="input-wrapper">
+              Configuracion Test    
+           </div>
+          </div>
+         </ion-list-header>
+
+           <ion-item>
+           <ion-label>Fecha</ion-label>
+           <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="MMM DD YYYY"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+           <ion-label>Hora Inicio</ion-label>
+           <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+           <ion-label>Hora Fin</ion-label>
+           <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+           <ion-label>Tiempo(min)</ion-label>
+           <ion-datetime displayFormat="mm" pickerFormat="mm"></ion-datetime>
+          </ion-item>
+           
+         </ion-list>
+
+                <ion-col col-6>
+                  <button ion-button block icon-start (click)="back4()" color="Light">
+                    <ion-icon name="arrow-back"></ion-icon>
+                    Atras
+                  </button>
+                </ion-col>
+              <ion-col col-6>
+                <button id="darExamen" ion-button block icon-end (click)="DarExamen(id);" color="secondary" disabled>
+                  Habilitar Test
+                  <ion-icon name="star" style="margin-left:5px;"></ion-icon>
+                </button>
+              </ion-col>
+
+    </div>
   </div>
-
-
-</ion-content>
-<!--
-<style>
-  ion-scroll {
-    width: 100%;
-    height: 100%;
-  }
-</style>-->

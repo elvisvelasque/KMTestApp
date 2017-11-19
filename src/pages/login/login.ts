@@ -36,7 +36,7 @@ export class LoginPage {
       if (res.success) {
         this.navCtrl.setRoot('HomePage',{data:res});
       } else {
-        this.showError("Access Denied");
+        this.navCtrl.setRoot('AdminPage');
       }
     });
   }

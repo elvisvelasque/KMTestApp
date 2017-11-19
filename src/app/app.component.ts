@@ -41,7 +41,7 @@ export class MyApp {
       {title: 'inicioExamen', component: InicioexamenPage},
       {title: 'examen', component: ExamenPage},
       //{title: 'finexamen', component: FinexamenPage},
-      {title: 'salir', component: LoginPage}
+      {title: 'salir', component: LoginPage},
     ];
   }
 

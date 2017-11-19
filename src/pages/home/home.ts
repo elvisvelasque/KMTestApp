@@ -37,7 +37,7 @@ export class HomePage{
   preguntas : Pregunta[]=[];
   answerStudent:number=0;
   respuestasAlumno:rptaAlumno[]=[];//despues seras eliminado
-  estilosIniciales: object[]=[];
+  estilosIniciales: Object[]=[];
 
 
   nombreExamen:string="";
@@ -57,9 +57,9 @@ export class HomePage{
   duracionExamen:number=0;
 
   Institucion:string="";
-  misInstituciones:object[]=[];
+  misInstituciones:Object[]=[];
   Locaciones:string="";
-  misLocaciones:object[]=[];
+  misLocaciones:Object[]=[];
   miperfil={pnombres:'',papellidos:'',pemail:'',pnumTel:'',pnumcell:'',pnumDoc:'',pcumpleanios:'',plocaciones:'',pdireccion:'',pgenero:'',pInstitucion:''};
 
 
@@ -75,7 +75,6 @@ export class HomePage{
     this.data = this.navParams.get('data');//datos token pasados a la vista home
     this.examenPendiente();//muestra los examenes pendientes
   }
-
 //extrayendo la data de examenes
   examenPendiente() {
     this.examen = [];
