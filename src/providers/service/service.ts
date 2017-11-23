@@ -76,7 +76,7 @@ export class ServiceProvider {
         email: newUser.email
       };
 
-      this.http.post(url+'student/auth/sign-up', JSON.stringify(data), {headers: headers})
+      this.http.post(url2+'student/auth/sign-up', JSON.stringify(data), {headers: headers})
         .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();
@@ -160,11 +160,11 @@ export class ServiceProvider {
     });
   }
 
-  getPreguntas(token,id) {
+  getPreguntas(session,id) {
     return Observable.create(observer => {
       let headers = new Headers();
-      headers.append('x-access-token',token);
-      this.http.get(url+'test/'+id+'/questions', {headers: headers})
+      headers.append('s-session',session);
+      this.http.get(url2+'student/evaluation/'+id+'/questions', {headers: headers})
         .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();

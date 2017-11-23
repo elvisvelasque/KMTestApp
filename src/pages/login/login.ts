@@ -119,6 +119,5 @@ export class LoginPage {
 
   createAccount(){
     this.type="register";
-    console.log("register");
   }
 }

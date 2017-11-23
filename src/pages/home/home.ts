@@ -112,11 +112,12 @@ export class HomePage{
           this.duration_time = exam.duration_time;
           this.id=exam.id;
           this.preguntas=[];
-          this.service.getPreguntas(this.data["token"],exam.id).subscribe(
+          this.service.getPreguntas(this.data["data"]["session_id"],exam.id).subscribe(
             data => {
+              //console.log(data["data"][0]);
               let tests = data["data"];
               for(var i=0;i<tests.length;i++){
-                this.preguntas.push(new Pregunta(tests[i]["id_question"],tests[i]["id_test"],tests[i]["order"],tests[i]["question"],tests[i]["picture"],tests[i]["option1"],tests[i]["option2"],tests[i]["option3"],tests[i]["option4"],tests[i]["option5"],tests[i]["answer"],tests[i]["correct_points"],tests[i]["error_points"]));
+                this.preguntas.push(new Pregunta(tests[i]["evaluation_id"],tests[i]["topic_id"],1,tests[i]["name"],"picture",tests[i]["statement"]["alternatives"][0]["text"],tests[i]["statement"]["alternatives"][1]["text"],tests[i]["statement"]["alternatives"][2]["text"],tests[i]["statement"]["alternatives"][3]["text"],tests[i]["statement"]["alternatives"][4]["text"],1,4,2));
               }
               console.log(this.preguntas);
               setTimeout(()=>{
@@ -229,7 +230,7 @@ export class HomePage{
   DarExamen(id){
     this.presentLoading();
     this.type="cabeceraExamen";
-    this.duracionExamen = 100;//this.DuracionActual(this.end_datetime);
+    this.duracionExamen = this.duration_time;
     this.inicioExamen = new Date();
     setTimeout((result) => {//inicia el contador del examen
       this.timer.startTimer();
