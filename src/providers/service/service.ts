@@ -189,14 +189,15 @@ export class ServiceProvider {
     });
   }
 
-  attempt(token,id_test){
+  attempt(session,id_test){
     return Observable.create(observer=>{
       let headers = new Headers();
-      headers.append('x-access-token',token);
+      headers.append('s-session',session);
+      headers.append('Content-Type', 'application/json');
       var data={
-        id_test:id_test
+        evaluation_id:id_test*1
       }
-      this.http.post(url+'attempt/new',JSON.stringify(data),{headers:headers})
+      this.http.post(url2+'student/attempt/start',JSON.stringify(data),{headers:headers})
         .subscribe(dat=>{
           observer.next(dat.json());
           observer.complete();

@@ -39,6 +39,7 @@ export class HomePage{
   respuestasAlumno:rptaAlumno[]=[];//despues seras eliminado
   estilosIniciales: Object[]=[];
 
+  attempt:number =0;
 
   nombreExamen:string="";
   number_questions:number=0;
@@ -114,10 +115,10 @@ export class HomePage{
           this.preguntas=[];
           this.service.getPreguntas(this.data["data"]["session_id"],exam.id).subscribe(
             data => {
-              //console.log(data["data"][0]);
+              console.log(data["data"]);
               let tests = data["data"];
               for(var i=0;i<tests.length;i++){
-                this.preguntas.push(new Pregunta(tests[i]["evaluation_id"],tests[i]["topic_id"],1,tests[i]["name"],"picture",tests[i]["statement"]["alternatives"][0]["text"],tests[i]["statement"]["alternatives"][1]["text"],tests[i]["statement"]["alternatives"][2]["text"],tests[i]["statement"]["alternatives"][3]["text"],tests[i]["statement"]["alternatives"][4]["text"],1,4,2));
+                this.preguntas.push(new Pregunta(i+1,tests[i]["topic_id"],1,tests[i]["name"],"picture",tests[i]["statement"]["alternatives"][0]["text"],tests[i]["statement"]["alternatives"][1]["text"],tests[i]["statement"]["alternatives"][2]["text"],tests[i]["statement"]["alternatives"][3]["text"],tests[i]["statement"]["alternatives"][4]["text"],1,4,2));
               }
               console.log(this.preguntas);
               setTimeout(()=>{
@@ -134,8 +135,8 @@ export class HomePage{
   }
 
   saveQuestion(id){
-   console.log(this.data["token"]+"--"+this.id+"--"+this.preguntas[id-1]["id_question"]+"--"+this.answerStudent);
-   this.service.saveQuestion(this.data["token"],this.id,this.preguntas[id-1]["id_question"],this.answerStudent).subscribe(
+   console.log(this.data["data"]["session_id"]+"--"+this.id+"--"+this.preguntas[id-1]["id_question"]+"--"+this.answerStudent);
+   this.service.saveQuestion(this.data["data"]["session_id"],this.attempt,this.preguntas[id-1]["id_question"],this.answerStudent).subscribe(
     data=>{
       console.log(data);
     },
@@ -228,21 +229,34 @@ export class HomePage{
   inicioExamen:Date=null;
 
   DarExamen(id){
-    this.presentLoading();
-    this.type="cabeceraExamen";
-    this.duracionExamen = this.duration_time;
-    this.inicioExamen = new Date();
-    setTimeout((result) => {//inicia el contador del examen
-      this.timer.startTimer();
-      this.finalizo();//saber si acabo el tiempo
-    }, 1000);
-    setTimeout(()=>{
-      document.getElementById("pregunta_1").style.display = "block";
-    },0);
-    setTimeout(()=>{
-      document.getElementsByClassName("botonTerminar")[this.preguntas.length-1].removeAttribute("style");
-      document.getElementsByClassName("botonTerminar")[this.preguntas.length-1].setAttribute("style","display:block");
-    },0)
+    //this.service.attempt(this.data["data"]["session_id"],id).subscribe( 
+      //data=>{
+        //if(data["success"]==false){
+         // this.intentoExamen()
+       // }else{
+          //console.log(data);
+          //this.attempt  = data["data"]["id"];
+          this.presentLoading();
+          this.type="cabeceraExamen";
+          this.duracionExamen = this.duration_time;
+          this.inicioExamen = new Date();
+          setTimeout((result) => {//inicia el contador del examen
+            this.timer.startTimer();
+            this.finalizo();//saber si acabo el tiempo
+          }, 1000);
+          setTimeout(()=>{
+            document.getElementById("pregunta_1").style.display = "block";
+          },3000);
+          setTimeout(()=>{
+            document.getElementsByClassName("botonTerminar")[this.preguntas.length-1].removeAttribute("style");
+            document.getElementsByClassName("botonTerminar")[this.preguntas.length-1].setAttribute("style","display:block");
+          },0)
+        //}
+      //},
+      //err => {
+        //console.log(err);
+      //}
+    //);
   }
 
   posicion:number=1;
