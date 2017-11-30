@@ -73,8 +73,12 @@
                             <ion-input [(ngModel)]="nuevoUsuario.username" name="username" type="text" required></ion-input>
                           </ion-item>
                           <ion-item>
-                            <ion-label floating>Clave</ion-label>
-                            <ion-input [(ngModel)]="nuevoUsuario.password" name="password" type="password" required></ion-input>
+                            <ion-label floating>Contraseña</ion-label>
+                            <ion-input [(ngModel)]="nuevoUsuario.password" name="password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" required></ion-input>
+                          </ion-item>
+                          <ion-item>
+                              <ion-label floating>Repita la contraseña</ion-label>
+                              <ion-input [(ngModel)]="nuevoUsuario.password2" name="password2" type="password" required></ion-input>
                           </ion-item>
                           <ion-item>
                             <ion-label floating>Nombres</ion-label>
@@ -89,8 +93,8 @@
                             <ion-input [(ngModel)]="nuevoUsuario.email" name="email" type="email" required></ion-input>
                           </ion-item>
         
-                            <button class="button button-block button-calm" [disabled]="!FormLogin2.form.valid" type="submit" style="background-color: #F7FE2E; color: #000000" full ion-button>REGISTRARSE
-                            </button>
+                            <button class="button button-block button-calm" [disabled]="!(FormLogin2.form.valid)|| nuevoUsuario.password != nuevoUsuario.password2" type="submit" style="background-color: #F7FE2E; color: #000000" full ion-button>REGISTRARSE
+                            </button><!---->
 
                             <button ion-button block icon-start (click)="back3()" color="Light">
                             <ion-icon name="arrow-back"></ion-icon>
