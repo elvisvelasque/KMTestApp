@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Headers, Http, Response} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Headers, Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 export class User {
   name: string;
@@ -15,7 +15,7 @@ export class User {
   }
 }
 
-const url="https://kmtest.victoralin10.com/api/";
+const url = "https://kmtest.victoralin10.com/api/";
 const url2 = "https://evaluapp.victoralin10.com/api/"
 
 @Injectable()
@@ -47,7 +47,7 @@ export class ServiceProvider {
         password: credentials.password
       };
 
-      this.http.post(url2+'student/auth/sign-in', JSON.stringify(data), {headers: headers})
+      this.http.post(url2 + 'student/auth/sign-in', JSON.stringify(data), { headers: headers })
         .subscribe(dat => {
           let response = dat.json();
           if (response.success) {
@@ -59,7 +59,7 @@ export class ServiceProvider {
     });
   }
 
-  public register(newUser){
+  public register(newUser) {
     if (newUser.username == null || newUser.password === null || newUser.first_name === null || newUser.last_name === null || newUser.email === null) {
       return Observable.throw("por favor ingrese los campos ");
     }
@@ -76,7 +76,7 @@ export class ServiceProvider {
         email: newUser.email
       };
 
-      this.http.post(url2+'student/auth/sign-up', JSON.stringify(data), {headers: headers})
+      this.http.post(url2 + 'student/auth/sign-up', JSON.stringify(data), { headers: headers })
         .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();
@@ -151,8 +151,8 @@ export class ServiceProvider {
   getDataExamenLocal(session) {
     return Observable.create(observer => {
       let headers = new Headers();
-      headers.append('s-session',session);
-      this.http.get(url2+'student/evaluation', {headers: headers})
+      headers.append('s-session', session);
+      this.http.get(url2 + 'student/evaluation', { headers: headers })
         .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();
@@ -160,11 +160,11 @@ export class ServiceProvider {
     });
   }
 
-  getPreguntas(session,id) {
+  getPreguntas(session, id) {
     return Observable.create(observer => {
       let headers = new Headers();
-      headers.append('s-session',session);
-      this.http.get(url2+'student/evaluation/'+id+'/questions', {headers: headers})
+      headers.append('s-session', session);
+      this.http.get(url2 + 'student/evaluation/' + id + '/questions', { headers: headers })
         .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();
@@ -172,57 +172,71 @@ export class ServiceProvider {
     });
   }
 
-  saveQuestion(token,id_exam,id_question,answer){
-    return Observable.create(observer=>{
+  finalizarExamen(session, attempt) {
+    console.log(session,attempt);
+    return Observable.create(observer => {
       let headers = new Headers();
-      headers.append('x-access-token',token);
-      var data = {
-        id_attempt:id_exam,
-        id_question:id_question,
-        answer:answer
-      }
-      this.http.post(url+'attempt/'+id_exam+'/answer/'+id_question,JSON.stringify(data),{headers:headers})
-        .subscribe(dat=>{
+      headers.append('s-session', session);
+      this.http.post(url2 + 'student/attempt/'+attempt+'/end',null, { headers: headers })
+        .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();
         })
     });
   }
 
-  attempt(session,id_test){
-    return Observable.create(observer=>{
+  saveQuestion(session, attempt, id_question, answer) {
+    return Observable.create(observer => {
       let headers = new Headers();
-      headers.append('s-session',session);
+      headers.append('s-session', session);
       headers.append('Content-Type', 'application/json');
-      var data={
-        evaluation_id:id_test*1
+      var data = {
+        attempt_id: attempt,
+        question_id: id_question,
+        answer: answer
       }
-      this.http.post(url2+'student/attempt/start',JSON.stringify(data),{headers:headers})
-        .subscribe(dat=>{
+      this.http.post(url2 + 'student/attempt/' + attempt + '/send-answer', JSON.stringify(data), { headers: headers })
+        .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();
         })
     });
   }
 
-  getInstitution(session){
-    return Observable.create(observer=>{
+  attempt(session, id_test) {
+    return Observable.create(observer => {
       let headers = new Headers();
-      headers.append('s-session',session);
-      this.http.get(url2+'student/institution',{headers:headers})
-        .subscribe(dat=>{
+      headers.append('s-session', session);
+      headers.append('Content-Type', 'application/json');
+      var data = {
+        evaluation_id: id_test * 1
+      }
+      this.http.post(url2 + 'student/attempt/start', JSON.stringify(data), { headers: headers })
+        .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();
         })
     });
   }
 
-  getGeoloc(session){
-    return Observable.create(observer=>{
+  getInstitution(session) {
+    return Observable.create(observer => {
       let headers = new Headers();
-      headers.append('s-session',session);
-      this.http.get(url2+'student/geoloc',{headers:headers})
-        .subscribe(dat=>{
+      headers.append('s-session', session);
+      this.http.get(url2 + 'student/institution', { headers: headers })
+        .subscribe(dat => {
+          observer.next(dat.json());
+          observer.complete();
+        })
+    });
+  }
+
+  getGeoloc(session) {
+    return Observable.create(observer => {
+      let headers = new Headers();
+      headers.append('s-session', session);
+      this.http.get(url2 + 'student/geoloc', { headers: headers })
+        .subscribe(dat => {
           observer.next(dat.json());
           observer.complete();
         })

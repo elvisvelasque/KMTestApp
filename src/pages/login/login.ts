@@ -14,7 +14,7 @@ export class LoginPage {
 
   loading: Loading;
   registerCredentials = {username: '', password: ''};
-  nuevoUsuario = {username:'',password:'',first_name:'',last_name:'',email:''};
+  nuevoUsuario = {username:'',password:'',password2:'',first_name:'',last_name:'',email:''};
   alumnos: any[];
   loader: any;
   Email;
@@ -51,7 +51,7 @@ export class LoginPage {
 
   presentAlert() {
     const alert = this.alertCtrl.create({
-      title: 'Registrado Correctamente',
+      title: 'Revise su correo para terminar el registro',
       subTitle: '',
       buttons: [
         {
