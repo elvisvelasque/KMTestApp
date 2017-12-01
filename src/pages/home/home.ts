@@ -118,7 +118,7 @@ export class HomePage{
               console.log(data["data"]);
               let tests = data["data"];
               for(var i=0;i<tests.length;i++){
-                this.preguntas.push(new Pregunta(i+1,tests[i]["topic_id"],1,tests[i]["name"],"picture",tests[i]["statement"]["alternatives"][0]["text"],tests[i]["statement"]["alternatives"][1]["text"],tests[i]["statement"]["alternatives"][2]["text"],tests[i]["statement"]["alternatives"][3]["text"],tests[i]["statement"]["alternatives"][4]["text"],1,4,2));
+                this.preguntas.push(new Pregunta(i+1,tests[i]["topic_id"],1,tests[i]["statement"]["text"],"picture",tests[i]["statement"]["alternatives"][0]["text"],tests[i]["statement"]["alternatives"][1]["text"],tests[i]["statement"]["alternatives"][2]["text"],tests[i]["statement"]["alternatives"][3]["text"],tests[i]["statement"]["alternatives"][4]["text"],1,4,2));
               }
               console.log(this.preguntas);
               setTimeout(()=>{
