@@ -6,3 +6,23 @@
 .icon {
   padding-right: 10px;
 }
+
+.alert-md .alert-button {
+    text-align: right;
+    text-align: end;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    font-weight: 500;
+    font-size:large;
+    text-transform: uppercase;
+    color: #488aff;
+    background-color: transparent;
+    margin-left: 0;
+    margin-right: 8px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 30px;
+    width:30px;
+	height:20px;
+}

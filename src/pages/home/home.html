@@ -76,12 +76,12 @@
       <ion-list>
         <ion-item-sliding *ngFor="let ex of examen">
           <button ion-item (click)="ViewIExamen(ex)">
-              <h1>{{ex?.id}}</h1>
-              <p>{{ex?.name}}</p>
-              <ion-icon name="paper-outline" item-right></ion-icon>
+              <b>{{ex?.id}}</b> <label style="font-size: large">{{ex?.name}}</label>
+               <ion-icon name="ios-arrow-forward"></ion-icon>
             </button>
         </ion-item-sliding>
       </ion-list>
+
     </div>
 
     <div *ngSwitchCase="'examenPendiente'">
@@ -417,12 +417,12 @@
     <div *ngSwitchCase="'resultado'">
       <ion-card-content class="card-content" center text-center>
         <p>RESULTADO DE EXAMEN DE EVALUACION</p>
-        <p>Cantidad de respuestas correctas: ????</p>
-        <p>Cantidad de respuestas incorrectas: ????</p>
-        <p>Cantidad de respuetas en blanco: ????</p>
-        <p>Puntaje obtenido: ????</p>
+        <p>Cantidad de respuestas correctas: {{resultados["respuestasCorrectas"]}}</p>
+        <p>Cantidad de respuestas incorrectas: {{resultados["respuestasIncorrectas"]}}</p>
+        <p>Cantidad de respuetas en blanco: {{resultados["respuestasBlanco"]}}</p>
+        <p>Puntaje obtenido: {{resultados["result"]}}</p>
         <p>Tiempo utilizado: {{DuracionAlumnoExamen()}}</p>
-        <p>RESULTADO:????</p>
+        <p>RESULTADO:{{resultados["aprobo"]}}</p>
         <!--<p>Cantidad de preguntas: {{number_questions}}</p>
             <p>Cantidad de preguntas respondidas: {{numRspndidas}}</p>
             <p> Cantidad de preguntas en blanco: {{numBlancos}}</p>

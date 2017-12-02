@@ -203,6 +203,18 @@ export class ServiceProvider {
     });
   }
 
+  obtenerPuntaje(session,attempt){
+    return Observable.create(observer => {
+      let headers = new Headers();
+      headers.append('s-session', session);
+      this.http.get(url2 + 'student/attempt/' + attempt + '/result', { headers: headers })
+        .subscribe(dat => {
+          observer.next(dat.json());
+          observer.complete();
+        })
+    });
+  }
+
   attempt(session, id_test) {
     return Observable.create(observer => {
       let headers = new Headers();
