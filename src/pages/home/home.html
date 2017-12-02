@@ -77,7 +77,7 @@
         <ion-item-sliding *ngFor="let ex of examen">
           <button ion-item (click)="ViewIExamen(ex)">
               <b>{{ex?.id}}</b> <label style="font-size: large">{{ex?.name}}</label>
-               <ion-icon name="ios-arrow-forward"></ion-icon>
+               <ion-icon name="ios-arrow-forward" item-end></ion-icon>
             </button>
         </ion-item-sliding>
       </ion-list>
@@ -124,7 +124,7 @@
       <ion-slides (ionSlideDidChange)="changeQuestion()">
         <ion-slide *ngFor="let pregunta of preguntas">
           <ion-card class="card" id="pregunta_{{pregunta['id_local']}}" style="">
-            <!--<img [src]="pregunta['picture']">-->
+            <img [src]="pregunta['picture']">
             <ion-card-content class="card-content">
               <ion-card-title>{{pregunta["id_local"]}}</ion-card-title>
               <p>{{pregunta["enunciado"]}}</p>
@@ -422,7 +422,7 @@
         <p>Cantidad de respuetas en blanco: {{resultados["respuestasBlanco"]}}</p>
         <p>Puntaje obtenido: {{resultados["result"]}}</p>
         <p>Tiempo utilizado: {{DuracionAlumnoExamen()}}</p>
-        <p>RESULTADO:{{resultados["aprobo"]}}</p>
+        <p>RESULTADO:<span id="aprobo">{{resultados["aprobo"]}}</span></p>
         <!--<p>Cantidad de preguntas: {{number_questions}}</p>
             <p>Cantidad de preguntas respondidas: {{numRspndidas}}</p>
             <p> Cantidad de preguntas en blanco: {{numBlancos}}</p>

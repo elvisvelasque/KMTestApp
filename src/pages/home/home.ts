@@ -162,9 +162,10 @@ export class HomePage {
         console.log(data["data"]);
         let tests = data["data"];
         for (var i = 0; i < tests.length; i++) {
-          this.preguntas.push(new Pregunta(i + 1, tests[i]["id"], tests[i]["name"], tests[i]["evaluation_id"], tests[i]["statement"]["text"], tests[i]["statement"]["picture"], tests[i]["statement"]["alternatives"][0]["text"], tests[i]["statement"]["alternatives"][1]["text"], tests[i]["statement"]["alternatives"][2]["text"], tests[i]["statement"]["alternatives"][3]["text"], tests[i]["statement"]["alternatives"][4]["text"]));
+          this.preguntas.push(new Pregunta(i + 1, tests[i]["id"], tests[i]["name"], tests[i]["evaluation_id"], tests[i]["statement"]["text"], tests[i]["statement"]["pictures"][0], tests[i]["statement"]["alternatives"][0]["text"], tests[i]["statement"]["alternatives"][1]["text"], tests[i]["statement"]["alternatives"][2]["text"], tests[i]["statement"]["alternatives"][3]["text"], tests[i]["statement"]["alternatives"][4]["text"]));
+          console.log(tests[i]["statement"]["pictures"][0]);
         }
-        console.log(this.preguntas);
+        
         setTimeout(() => {
           document.getElementById("darExamen").removeAttribute("disabled");
         }, 0);
@@ -319,7 +320,7 @@ export class HomePage {
     if (id > 1) {
       this.slides.slideTo(id - 2, 500);
       this.posicion = id - 1;
-      this.saveQuestion(id);
+      //this.saveQuestion(id);
     }
   }
 
@@ -327,7 +328,7 @@ export class HomePage {
     if (id < this.preguntas.length) {
       this.slides.slideTo(id, 500);
       this.posicion = id + 1;
-      this.saveQuestion(id);
+      //this.saveQuestion(id);
     } else {
       this.endQuestion();
     }
@@ -349,7 +350,9 @@ export class HomePage {
       this.resultados = new Resultados(data["data"]["result"],data["data"]["answer_correct"],data["data"]["answer_error"],data["data"]["answer_blank"]);
       if(this.resultados["result"]>=10){
         this.resultados["aprobo"] = "aprobado";
-      }else this.resultados["aprobo"] = "desaprobado";
+      }else{
+        this.resultados["aprobo"] = "desaprobado";
+      } 
       console.log(this.resultados);
       this.type = "resultado";
     },err=>{

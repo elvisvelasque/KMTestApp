@@ -54,7 +54,7 @@
         
                             <button class="button button-block button-calm" [disabled]="!FormLogin.form.valid" type="submit" style="background-color: #F7FE2E; color: #000000" full ion-button>ENTRAR
                             </button>
-                            <button ion-button class="register-btn" type="button" block clear (click)="createAccount()">Crear nueva cuenta</button>
+                            <button ion-button class="register-btn" type="button" block clear (click)="createAccount()" style="color:#000;">Crear nueva cuenta</button>
                         </form>
                         <br>
                       </ion-card-content>
@@ -74,7 +74,7 @@
                           </ion-item>
                           <ion-item>
                             <ion-label floating>Contraseña</ion-label>
-                            <ion-input [(ngModel)]="nuevoUsuario.password" name="password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" required></ion-input>
+                            <ion-input [(ngModel)]="nuevoUsuario.password" name="password" type="password" required></ion-input>
                           </ion-item>
                           <ion-item>
                               <ion-label floating>Repita la contraseña</ion-label>
