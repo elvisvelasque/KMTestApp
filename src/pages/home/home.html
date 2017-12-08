@@ -123,7 +123,7 @@
       </ion-segment-button>
       <ion-slides (ionSlideDidChange)="changeQuestion()">
         <ion-slide *ngFor="let pregunta of preguntas">
-          <ion-card class="card" id="pregunta_{{pregunta['id_local']}}" style="">
+          <ion-card class="card" id="pregunta_{{pregunta['id_local']}}">
             <img [src]="pregunta['picture']">
             <ion-card-content class="card-content">
               <ion-card-title>{{pregunta["id_local"]}}</ion-card-title>
@@ -132,23 +132,23 @@
             <ion-list>
               <ion-item>
                 <ion-label text-wrap>a) {{pregunta["option1"]}}</ion-label>
-                <ion-checkbox (ionChange)=guardarOption(1,$event)></ion-checkbox>
+                <ion-checkbox (ionChange)="guardarOption(1,$event,pregunta['id_local'])"></ion-checkbox>
               </ion-item>
               <ion-item>
                 <ion-label text-wrap>b) {{pregunta["option2"]}}</ion-label>
-                <ion-checkbox (ionChange)=guardarOption(2,$event)></ion-checkbox>
+                <ion-checkbox (ionChange)="guardarOption(2,$event,pregunta['id_local'])"></ion-checkbox>
               </ion-item>
               <ion-item>
                 <ion-label text-wrap>c) {{pregunta["option3"]}}</ion-label>
-                <ion-checkbox (ionChange)=guardarOption(4,$event)></ion-checkbox>
+                <ion-checkbox (ionChange)="guardarOption(4,$event,pregunta['id_local'])"></ion-checkbox>
               </ion-item>
               <ion-item>
                 <ion-label text-wrap>d) {{pregunta["option4"]}}</ion-label>
-                <ion-checkbox (ionChange)=guardarOption(8,$event)></ion-checkbox>
+                <ion-checkbox (ionChange)="guardarOption(8,$event,pregunta['id_local'])"></ion-checkbox>
               </ion-item>
               <ion-item>
                 <ion-label text-wrap>e) {{pregunta["option5"]}}</ion-label>
-                <ion-checkbox (ionChange)=guardarOption(16,$event)></ion-checkbox>
+                <ion-checkbox (ionChange)="guardarOption(16,$event,pregunta['id_local'])"></ion-checkbox>
               </ion-item>
             </ion-list>
             <br>

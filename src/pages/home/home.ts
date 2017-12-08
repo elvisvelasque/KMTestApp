@@ -37,7 +37,7 @@ export class HomePage {
   examen: TestPendiente[] = [];
   idPregunta: number = 1;
   preguntas: Pregunta[] = [];
-  answerStudent: number = 0;
+  answerStudent: number[] = [];
   respuestasAlumno: rptaAlumno[] = [];//despues seras eliminado
   estilosIniciales: Object[] = [];
   resultados:Resultados=null;
@@ -163,7 +163,7 @@ export class HomePage {
         let tests = data["data"];
         for (var i = 0; i < tests.length; i++) {
           this.preguntas.push(new Pregunta(i + 1, tests[i]["id"], tests[i]["name"], tests[i]["evaluation_id"], tests[i]["statement"]["text"], tests[i]["statement"]["pictures"][0], tests[i]["statement"]["alternatives"][0]["text"], tests[i]["statement"]["alternatives"][1]["text"], tests[i]["statement"]["alternatives"][2]["text"], tests[i]["statement"]["alternatives"][3]["text"], tests[i]["statement"]["alternatives"][4]["text"]));
-          console.log(tests[i]["statement"]["pictures"][0]);
+          this.answerStudent[i] = 0;
         }
         
         setTimeout(() => {
@@ -182,7 +182,7 @@ export class HomePage {
 
   saveQuestion(id) {
     //console.log(this.data["data"]["session_id"] + "--" + this.attempt + "--" + this.preguntas[id - 1]["id_remote"] + "--" + this.answerStudent);
-    this.service.saveQuestion(this.data["data"]["session_id"], this.attempt, this.preguntas[id - 1]["id_remote"], this.answerStudent).subscribe(
+    this.service.saveQuestion(this.data["data"]["session_id"], this.attempt, this.preguntas[id - 1]["id_remote"], this.answerStudent[id-1]).subscribe(
       data => {
         console.log(data);
       },
@@ -190,7 +190,6 @@ export class HomePage {
         console.log(err);
       }
     );
-    this.answerStudent = 0;
   }
 
   Duracion(start, end) {
@@ -339,9 +338,9 @@ export class HomePage {
     this.saveQuestion(indexAnterior+1);
   }
 
-  guardarOption(value, e) {
-    if (e.checked) this.answerStudent += value;
-    else this.answerStudent -= value;
+  guardarOption(value, e,id) {
+    if (e.checked) this.answerStudent[id-1] += value;
+    else this.answerStudent[id-1] -= value;
     console.log(this.answerStudent);
   }
 
@@ -360,6 +359,7 @@ export class HomePage {
     });
     
     this.preguntas = [];
+    this.answerStudent = [];
   }
 
   verSolucionario() {
@@ -431,7 +431,6 @@ export class HomePage {
       text: 'OK',
       handler: data => {
         this.slides.slideTo(data - 1, 500);
-        this.saveQuestion(id);
       }
     });
     alert.present();

@@ -173,7 +173,6 @@ export class ServiceProvider {
   }
 
   finalizarExamen(session, attempt) {
-    console.log(session,attempt);
     return Observable.create(observer => {
       let headers = new Headers();
       headers.append('s-session', session);
