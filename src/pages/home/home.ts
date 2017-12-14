@@ -8,6 +8,8 @@ import { TimerComponent } from '../timer/timer'
 import { TestPendiente } from '../../model/TestPendiente';
 import { Pregunta } from '../../model/Pregunta';
 import { Resultados } from '../../model/Resultados';
+import { AdminPage } from '../admin/admin';
+
 
 export class rptaAlumno {//despues seras eliminado
   id_question: number;
@@ -371,6 +373,10 @@ export class HomePage {
     this.type2 = "";
     this.menuCtrl.close();
 
+  }
+
+   irAdmin() {
+    this.navCtrl.push(AdminPage); 
   }
 
   iraPerfil() {

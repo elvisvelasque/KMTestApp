@@ -6,7 +6,7 @@ import {LoginPage} from '../pages/login/login';
 import {HomePage} from '../pages/home/home';
 import {InicioexamenPage} from '../pages/inicioexamen/inicioexamen';
 import {ExamenPage} from '../pages/examen/examen';
-//import {FinexamenPage} from '../pages/finexamen/finexamen';
+import {AdminPage} from '../pages/admin/admin';
 import {ServiceProvider} from '../providers/service/service';
 
 

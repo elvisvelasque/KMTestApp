@@ -33,20 +33,23 @@
 
   <ion-menu [content]="mycontent">
     <ion-content>
-      <ion-list style="margin-right:-80px;margin-top:-10px;">
-        <ion-item style="margin-left:-50px;">
-          <button class="item item-block" (click)="iraPerfil()" ion-item style="margin-left:20px;margin-top:-10px;border-bottom:1px solid black;">
+      <ion-list lines>
+        
+          <button ion-item (click)="iraPerfil()">
             <ion-icon name="person"></ion-icon>
             MI PERFIL
           </button>
-        </ion-item>
 
-        <!--<ion-item style="margin-left:-50px;">
-          <button class="item item-block" (click)="irAlumnos()" ion-item style="margin-left:20px;margin-top:-10px;border-bottom:1px solid black;">
+           <!--<button ion-item (click)="irAlumnos()">
             <ion-icon name="person"></ion-icon>
             ALUMNOS
           </button>
-        </ion-item>-->
+
+          <button ion-item (click)="irAdmin()">
+            <ion-icon name="person"></ion-icon>
+            ADMIN
+          </button> -->
+     
 
       </ion-list>
     </ion-content>
