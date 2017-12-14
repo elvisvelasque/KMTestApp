@@ -25,7 +25,7 @@ export class AdminPage {
               public alertCtrl: AlertController,
               public menuCtrl:MenuController) {
 
-        this.type = "";
+        this.type = "principal";
     }
 
   goToLoginPage() {
@@ -88,6 +88,11 @@ export class AdminPage {
 
   irCuestionarios(){
     this.type="listCuestionarios";
+    this.menuCtrl.close();
+  }
+
+  irPrincipal(){
+    this.type="principal";
     this.menuCtrl.close();
   }
 

@@ -30,80 +30,120 @@
 </ion-header>
 <ion-content padding>
 
-  <ion-menu [content]="mycontent">
+<ion-menu [content]="mycontent">
     <ion-content>
-      <ion-list style="margin-right:-80px;margin-top:-10px;">
-        <ion-item style="margin-left:-50px;">
-          <button class="item item-block" (click)="irAlumnos()" ion-item style="margin-left:20px;margin-top:-10px;border-bottom:1px solid black;">
+      <ion-list lines>
+        
+          <button ion-item (click)="irPrincipal()">
+            <ion-icon name="person"></ion-icon>
+            PRINCIPAL
+          </button>
+
+          <button ion-item (click)="irAlumnos()">
             <ion-icon name="person"></ion-icon>
             ALUMNOS
           </button>
-        </ion-item>
 
-<ion-item style="margin-left:-50px;">
-          <button class="item item-block" (click)="irCuestionarios()" ion-item style="margin-left:20px;margin-top:-10px;border-bottom:1px solid black;">
+          <button ion-item (click)="irCuestionarios()">
             <ion-icon name="person"></ion-icon>
             CUESTIONARIOS
-           </button>
-        </ion-item>
+          </button> 
+     
 
       </ion-list>
     </ion-content>
-
-    
   </ion-menu>
+
+
+
   <ion-nav #mycontent [root]="adminPage"></ion-nav>
 
   <div [ngSwitch]="type">
-    <div *ngSwitchCase = "'listAlumnos'">
-    <ion-list class="">
 
-    <ion-list-header class="item item-ios list-header list-header-ios">
-     <div class="item-inner">
-      <div class="input-wrapper">
-         Alumnos     
-      </div>
-     </div>
-    </ion-list-header>
+    <div *ngSwitchCase = "'principal'">
+  
+    </div>
+
+
+    <div *ngSwitchCase = "'listAlumnos'">
+   
+   <div padding>
+  <ion-segment [(ngModel)]="alumnos">
+    <ion-segment-button value="activos">
+      Alumnos activos
+    </ion-segment-button>
+    <ion-segment-button value="inactivos">
+      Alumnos inactivos
+    </ion-segment-button>
+    <ion-segment-button value="porActivar">
+      Alumnos por activar
+    </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="alumnos">
+
+    <ion-list *ngSwitchCase="'activos'">
 
     <ion-item class="item item-block item-ios">
       <ion-avatar item-start="">
-        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-finn.png">
-      </ion-avatar><!--<div class="item-inner"><div class="input-wrapper"><ion-label class="label label-ios">-->
-    <h2>My Neighbor Totoro</h2>
-    <p>Hayao Miyazaki • 1988</p>
-    <button ion-button clear item-end (click)="verExamenes()">View</button>
-    <!--</ion-label>
-    </div>
-    </div>-->
-    </ion-item>
-
-    <ion-item class="item item-block item-ios"><ion-avatar item-start="">
-        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-han.png">
+      <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-finn.png">
       </ion-avatar>
-      <h2>Han</h2>
-      <p>I've got enough on my plate as it is, and I...</p>
-     <button ion-button clear item-end (click)="verExamenes()">View</button>
+      <ion-label>My Neighbor Totoro</ion-label>
+       <ion-toggle checked="true"></ion-toggle>
+      <button ion-button clear item-end (click)="verExamenes()">Ver</button>
     </ion-item>
 
-    
-   
     <ion-item class="item item-block item-ios"><ion-avatar item-start="">
+      <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-han.png">
+      </ion-avatar>
+      <ion-label>Han Solo</ion-label>
+      <ion-toggle checked="true"></ion-toggle>
+      <button ion-button clear item-end (click)="verExamenes()">Ver</button>
+    </ion-item>
+    
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'inactivos'">
+    <ion-item class="item item-block item-ios">
+      <ion-avatar item-start="">
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-finn.png">
+      </ion-avatar>
+      <h2>Viaje de chihiro</h2>
+      <p>Hayao Miyazaki • 1988</p>
+      <button ion-button clear item-end (click)="verExamenes()">Ver</button>
+    </ion-item>
+   
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'porActivar'">
+    <ion-item >
+      <ion-avatar item-start="">
         <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-rey.png">
       </ion-avatar>
-      <h2>Han</h2>
-      <p>I've got enough on my plate as it is, and I...</p>
-     <button ion-button clear item-end (click)="verExamenes()">View</button>
+      <ion-label>
+        nombre persona 1
+      </ion-label>
+      <ion-toggle checked="false"></ion-toggle>
     </ion-item>
 
-    <ion-item class="item item-block item-ios"><ion-avatar item-start="">
+    <ion-item >
+      <ion-avatar item-start="">
         <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-luke.png">
       </ion-avatar>
-      <h2>Han</h2>
-      <p>I've got enough on my plate as it is, and I...</p>
-     <button ion-button clear item-end (click)="verExamenes()">View</button>
+     <ion-label>
+        nombre persona 2
+      </ion-label>
+      <ion-toggle ></ion-toggle>
+     
     </ion-item>
+
+   
     </ion-list>
+  </div>
+
+  
+
     </div>
 
     <div *ngSwitchCase = "'examenes'">
