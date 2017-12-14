@@ -20,7 +20,7 @@ import {HttpModule} from '@angular/http';
     InicioexamenPage,
     ExamenPage,
     //FinexamenPage,
-    AdminPage,
+    //AdminPage,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +34,7 @@ import {HttpModule} from '@angular/http';
     InicioexamenPage,
     ExamenPage,
     //FinexamenPage,
-    AdminPage
+    //AdminPage
   ],
   providers: [
     StatusBar,

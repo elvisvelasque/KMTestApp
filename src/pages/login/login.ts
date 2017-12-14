@@ -36,8 +36,8 @@ export class LoginPage {
       if (res.success) {
         this.navCtrl.setRoot('HomePage',{data:res});
       } else {
-        //this.navCtrl.setRoot('AdminPage');
-        this.showError("Contraseña incorrecta");
+        this.navCtrl.setRoot('AdminPage');
+        //this.showError("Contraseña incorrecta");
       }
     });
   }
