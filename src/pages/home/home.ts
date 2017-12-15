@@ -356,7 +356,7 @@ export class HomePage {
         rptaIncorrecta+=detalle[i]["wrong_answers"];
         rptaCorrecta+=detalle[i]["correct_answers"];
       }
-      this.resultados = new Resultados(data["data"]["result"],rptaCorrecta,rptaIncorrecta,data["data"]["answer_blank"],data["data"]["answer_correct"]);
+      this.resultados = new Resultados(data["data"]["result"],rptaCorrecta,rptaIncorrecta,data["data"]["answer_blank"]);
       if(this.resultados["result"]>=10){
         this.resultados["aprobo"] = "aprobado";
       }else{
