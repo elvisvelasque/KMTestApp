@@ -127,10 +127,10 @@
       <ion-slides (ionSlideDidChange)="changeQuestion()">
         <ion-slide *ngFor="let pregunta of preguntas">
           <ion-card class="card" id="pregunta_{{pregunta['id_local']}}">
-            <img [src]="pregunta['picture']">
             <ion-card-content class="card-content">
               <ion-card-title>{{pregunta["id_local"]}}</ion-card-title>
               <p>{{pregunta["enunciado"]}}</p>
+              <div *ngIf="pregunta['picture']!=null" style="width: 50%; margin: 0 auto;"><img [src]="pregunta['picture']"></div>
             </ion-card-content>
             <ion-list>
               <ion-item>
@@ -420,6 +420,7 @@
     <div *ngSwitchCase="'resultado'">
       <ion-card-content class="card-content" center text-center>
         <p>RESULTADO DE EXAMEN DE EVALUACION</p>
+        <p>Cantidad de respuestas contestadas: {{resultados["respuestasContestadas"]}}</p>
         <p>Cantidad de respuestas correctas: {{resultados["respuestasCorrectas"]}}</p>
         <p>Cantidad de respuestas incorrectas: {{resultados["respuestasIncorrectas"]}}</p>
         <p>Cantidad de respuetas en blanco: {{resultados["respuestasBlanco"]}}</p>
