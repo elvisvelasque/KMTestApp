@@ -349,14 +349,7 @@ export class HomePage {
   obtenerPuntaje(session,attempt) {
     this.service.obtenerPuntaje(session,attempt).subscribe(data=>{
       console.log(data);
-      var detalle = data["data"]["question_detail"];
-      var rptaIncorrecta = 0;
-      var rptaCorrecta = 0;
-      for(var i=0;i<detalle.length;i++){
-        rptaIncorrecta+=detalle[i]["wrong_answers"];
-        rptaCorrecta+=detalle[i]["correct_answers"];
-      }
-      this.resultados = new Resultados(data["data"]["result"],rptaCorrecta,rptaIncorrecta,data["data"]["answer_blank"]);
+      this.resultados = new Resultados(data["data"]["result"],data["data"]["answer_correct"],data["data"]["answer_error"],data["data"]["answer_blank"]);
       if(this.resultados["result"]>=10){
         this.resultados["aprobo"] = "aprobado";
       }else{
@@ -364,9 +357,6 @@ export class HomePage {
       } 
       console.log(this.resultados);
       this.type = "resultado";
-      /*var nota = document.getElementById("aprobo").innerHTML;
-      if(nota.length>=2) document.getElementById("aprobo").style.color = "green";
-      else document.getElementById("aprobo").style.color = "red";*/
     },err=>{
       console.log(err);
     });
